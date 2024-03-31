@@ -1,0 +1,98 @@
+.closeMsg {
+    padding: 0 10px;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.openMsg {
+    padding: 0 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 15px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+    transition: 0.2s;
+}
+
+.senderDetails {
+    height: min-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    /* border: 1px solid black; */
+}
+
+.openMsg .senderDetails{
+    height: 59px;
+}
+
+.profile {
+    max-width: 43px;
+    max-height: 43px;
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.icon {
+    color: #404040;
+    min-height: 43px;
+    min-width: 43px;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sender {
+    font-weight: 800;
+    white-space: nowrap;
+    font-size: large;
+}
+
+.openMsg .sender {
+    width: 100px;
+}
+
+.closeMsg p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: gray;
+    transition: 0.2s;
+}
+
+.openMsg p {
+    width: 100%;
+    padding-top: 50px;
+    margin: 0 -100px 15px -110px;
+    /* transform: scale(1.2); */
+    color: black;
+    transition: 0.2s;
+}
+
+.time {
+    margin-left: auto;
+    color: gray;
+    font-size: smaller;
+    white-space: nowrap;
+}
+
+.openMsg .time {
+    height: 59px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* border: 1px solid black; */
+}

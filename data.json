@@ -1,0 +1,62 @@
+{
+  "inbox": [
+    {
+      "sender": "Jessica Koel",
+      "time": "11:26",
+      "message": "Hey Jontray, do you remember...",
+      "unread": true
+    },
+    {
+      "sender": "Kamil Boerger",
+      "time": "11:15",
+      "message": "Will send the documents as soon...",
+      "unread": false
+    }
+  ],
+  "sentEmails": [],
+  "favourites": [],
+  "drafts": [],
+  "deleted": [],
+  "threads": [
+    {
+      "subject": "Meeting with new investors",
+      "participants": [
+        "Jessica Koel",
+        "You"
+      ],
+      "messages": [
+        {
+          "sender": "Jessica Koel",
+          "time": "14.09.2020 09:25",
+          "message": "Hi, I have a new meeting opportunity..."
+        },
+        {
+          "sender": "You",
+          "time": "14.09.2020 10:11",
+          "message": "Hi, thanks for the info, of course we need to..."
+        },
+        {
+          "sender": "Jessica Koel",
+          "time": "Today, 16.09.2020, 11:26",
+          "message": "Hey Jontray,\n\nDo you remember about tomorrow's meeting with new investors? Here you have more information about the conference at which we will be together with the client: https://conference.com/agenda/start\n\nRegards,\nJessica"
+        }
+      ]
+    }
+  ],
+  "labels": [
+    "Work",
+    "Promising offers",
+    "Work in Progress",
+    "In acceptance",
+    "Read later"
+  ],
+  "contacts": [
+    "Tamara Shevchenko",
+    "Sam Nelson",
+    "Jonas Berger",
+    "Kristian Kurzawa",
+    "Caroline Nixon",
+    "Patrick Kluivert",
+    "Lieke Martens"
+  ]
+}

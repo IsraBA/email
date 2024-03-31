@@ -1,0 +1,36 @@
+/* .quill{
+    height: 150px;
+} */
+
+.ql-toolbar {
+  border-radius: 5px 5px 0 0;
+  padding: 5px;
+  /* height: 40px; */
+}
+
+.ql-container {
+  border-radius: 0 0 5px 5px;
+  height: 120px;
+}
+
+button:hover .ql-stroke,
+.ql-picker-label:hover .ql-stroke {
+  fill: none;
+  stroke: var(--main-color) !important;
+}
+
+.ql-active .ql-stroke {
+  fill: none;
+  stroke: var(--main-color) !important;
+}
+
+button:hover .ql-fill,
+.ql-picker-label:hover .ql-fill {
+  fill: var(--main-color) !important;
+  stroke: none;
+}
+
+.ql-active .ql-fill {
+  fill: var(--main-color) !important;
+  stroke: none;
+}

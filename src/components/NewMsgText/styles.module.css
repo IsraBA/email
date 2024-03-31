@@ -1,0 +1,47 @@
+.newMsgInput {
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+}
+
+.msgOption {
+    width: 100%;
+    height: 50px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.send{
+    width: 80px;
+    margin-left: 20px;
+}
+
+.options {
+    display: flex;
+    flex-direction: row;
+}
+.options form {
+    display: flex;
+    flex-direction: row;
+}
+
+.option {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    color: gray;
+    font-size: 17px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.option:hover {
+    color: var(--main-color);
+}
+
+.upload{
+    display: none;
+}

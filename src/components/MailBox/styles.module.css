@@ -1,0 +1,40 @@
+.mailBox {
+    border-left: 2px solid rgb(233, 233, 233);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.headline {
+    height: 60px;
+    border-bottom: 2px solid rgb(233, 233, 233);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.headline h1 {
+    font-size: 25px;
+}
+
+.back{
+    border: none;
+    height: 28px;
+    width: 28px;
+    border-radius: 5px;
+    background-color: rgb(226, 226, 226);
+    cursor: pointer;
+}
+
+.mailBox ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

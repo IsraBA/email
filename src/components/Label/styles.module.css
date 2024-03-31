@@ -1,0 +1,32 @@
+.labelText {
+    position: relative;
+    height: 40px;
+    padding-left: 12px;
+    padding-right: 7px;
+    border-radius: 8px;
+    background-color: rgb(255, 224, 158);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: min-content;
+    white-space: nowrap;
+}
+
+.labelText::after {
+    content: "";
+    position: absolute;
+    border-radius: 8px;
+    height: 32px;
+    right: -9px;
+    aspect-ratio: 1/1;
+    transform: rotate(45deg);
+    background-color: rgb(255, 224, 158);
+    z-index: -10;
+}
+
+.labelText button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

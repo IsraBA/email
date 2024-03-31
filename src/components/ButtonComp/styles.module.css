@@ -1,0 +1,16 @@
+.btn{
+    height: 40px;
+    width: 100%;
+    border: none;
+    padding: 5px 10px;
+    background-color: var(--main-color);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 8px;
+    fill: white;
+    cursor: pointer;
+}
