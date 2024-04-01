@@ -1,0 +1,194 @@
+.container {
+    animation: confirmCont 0.3s ease-out;
+    background-color: rgb(250, 250, 250);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    border-radius: 20px;
+    box-shadow: rgba(45, 35, 66, 0.2) 0 2px 4px, rgba(45, 35, 66, 0.266) 5px 7px 13px -3px, var(--main-color) -2px -3px 0 inset;
+    position: relative;
+}
+
+@keyframes confirmCont {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.container h3 {
+    width: 200px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.textInputWrapper {
+    position: relative;
+    width: 180px;
+    margin: 5px 5px 15px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.addLabel,
+.hide {
+    position: absolute;
+    right: 0px;
+    padding: 7px;
+    background-color: var(--sub-color);
+    border: none;
+    cursor: pointer;
+    transform: scale(1);
+    transition: 0.2s;
+}
+
+.hide {
+    transform: scale(0);
+    transition: 0.2s;
+}
+
+.colorInput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.colorPicker {
+    width: 26px;
+    height: 25px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+
+.colorPicker:focus {
+    outline: none;
+    border-color: var(--main-color);
+}
+
+.error {
+    animation: error 0.4s;
+    position: absolute;
+    bottom: 17px;
+    font-size: small;
+    font-weight: 700;
+    color: rgb(226, 47, 47);
+}
+
+@keyframes error {
+    0% {
+        transform: translateX(-10px);
+    }
+
+    25% {
+        transform: translateX(10px);
+    }
+
+    50% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.textInputWrapper:before {
+    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+}
+
+.textInputWrapper:before,
+.textInputWrapper:after {
+    content: "";
+    left: 0;
+    right: 0;
+    position: absolute;
+    pointer-events: none;
+    bottom: -1px;
+    z-index: 4;
+    width: 100%;
+}
+
+.textInputWrapper:focus-within:before {
+    border-bottom: 1px solid var(--main-color);
+}
+
+.textInputWrapper:before {
+    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-bottom: 1px solid var(--main-color);
+}
+
+.textInputWrapper:focus-within:before {
+    border-bottom: 1px solid var(--main-color);
+    transform: scaleX(1);
+}
+
+.textInputWrapper:focus-within:after {
+    border-bottom: 2px solid var(--main-color);
+    transform: scaleX(1);
+}
+
+.textInputWrapper:after {
+    content: "";
+    transform: scaleX(0);
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    will-change: transform;
+    border-bottom: 2px solid var(--main-color);
+    border-bottom-color: var(--main-color);
+}
+
+.textInput::placeholder {
+    transition: opacity 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    opacity: 1;
+    user-select: none;
+    color: rgb(168, 159, 177);
+}
+
+.textInputWrapper .textInput {
+    border-radius: 5px 5px 0px 0px;
+    box-shadow: 0px 2px 5px rgb(35 35 35 / 30%);
+    max-height: 36px;
+    background-color: var(--sub-color);
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 200ms;
+    transition-property: background-color;
+    color: rgb(40, 40, 40);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px;
+    width: 100%;
+    border: none;
+}
+
+.textInputWrapper .textInput:focus,
+.textInputWrapper .textInput:active {
+    outline: none;
+}
+
+.textInputWrapper:focus-within .textInput,
+.textInputWrapper .textInput:focus,
+.textInputWrapper .textInput:active {
+    background-color: var(--sub-color);
+}
+
+.textInputWrapper:focus-within .textInput::placeholder {
+    opacity: 0;
+}

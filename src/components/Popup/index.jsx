@@ -8,7 +8,9 @@ export default function Popup() {
 
     return (
         <div className={popUpComp ? styles.popup : styles.close} onClick={() => setPopUpComp(false)}>
-            {popUpComp}
+            <div onClick={(e) => e.stopPropagation()}>
+                {popUpComp}
+            </div>
         </div>
     )
 }

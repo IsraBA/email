@@ -6,11 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faEnvelope, faInbox, faPaperPlane, faPen, faStar, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Outlet } from 'react-router-dom'
 import { usePopUp } from '../../Context/PopupContext'
+import Labels from '../Labels'
 
 
 export default function MailBox() {
 
-  const { popUpComp, setPopUpComp } = usePopUp();
+  const { setPopUpComp } = usePopUp();
 
   return (
     <>
@@ -22,7 +23,7 @@ export default function MailBox() {
           </div>
           <ButtonComp titleAndIcon={[<FontAwesomeIcon icon={faEnvelope} />, 'New message']} click={() => setPopUpComp(<>hello</>)} />
         </div>
-        <ul>
+        <ul className={styles.subjects}>
           <li><MailBoxOption
             icon={<FontAwesomeIcon icon={faInbox} />}
             title='Inbox'
@@ -54,6 +55,7 @@ export default function MailBox() {
             notificationsNum={0}
           /></li>
         </ul>
+        <Labels />
       </div>
       <Outlet />
     </>
