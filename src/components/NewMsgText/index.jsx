@@ -6,8 +6,13 @@ import './quill.css'
 import ButtonComp from '../ButtonComp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faImage, faPaperPlane, faPaperclip, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { usePopUp } from '../../Context/PopupContext';
+import Confirm from '../Confirm';
 
 export default function MessageInput() {
+
+    const { setPopUpComp } = usePopUp();
+
     const [message, setMessage] = useState('');
 
     const handleMessageChange = (value) => {
@@ -18,6 +23,12 @@ export default function MessageInput() {
         // TODO: send the message
         console.log(message);
     };
+
+    const deleteMsg = () => {
+        if (message !== '') {
+            setPopUpComp(<Confirm func={() => setMessage('')} message={'Are you sure you want to delete the message?'} />)
+        }
+    }
 
     return (
         <div className={styles.newMsgInput}>
@@ -55,7 +66,7 @@ export default function MessageInput() {
                     </form>
                 </div>
                 <div className={styles.options}>
-                    <button className={styles.option} onClick={() => setMessage('')}><FontAwesomeIcon icon={faTrash} /></button>
+                    <button className={styles.option} onClick={deleteMsg}><FontAwesomeIcon icon={faTrash} /></button>
                     <button className={styles.option}><FontAwesomeIcon icon={faEllipsisVertical} /></button>
                     <div className={styles.send}>
                         <ButtonComp titleAndIcon={['Send', <FontAwesomeIcon icon={faPaperPlane} />]} click={handleSubmit} />

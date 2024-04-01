@@ -13,7 +13,7 @@ function App() {
       <Popup/>
       <Routes>
         <Route path='login' element={<>Login</>} />
-        <Route element={<Layout />}>
+        <Route path='/' element={<Layout />}>
           <Route path='messages' element={<MailBox />}>
             <Route path=':type' element={<Chats />}>
               <Route path=':id' element={<Chat />}>
