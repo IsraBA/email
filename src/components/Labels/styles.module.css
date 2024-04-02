@@ -11,6 +11,7 @@
     align-items: center;
     gap: 10px;
     color: gray;
+    padding: 0 5px;
 }
 
 .header h3 {
