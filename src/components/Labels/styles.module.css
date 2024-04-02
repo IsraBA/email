@@ -37,8 +37,9 @@
 .labelList {
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    /* gap: 9px; */
     flex: 1 1 0;
     overflow-y: auto;
     position: relative;
+    transition: 0.5s;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import styles from './styles.module.css'
 
-export default function ContextMenu({ x, y, options = [{ icon: '', title: '' }], closeMenu }) {
+export default function ContextMenu({ x, y, options = [{ icon: '', title: '', func: () => { } }], closeMenu }) {
 
     const menuRef = useRef(null);
 
@@ -20,8 +20,8 @@ export default function ContextMenu({ x, y, options = [{ icon: '', title: '' }],
 
 
     return (
-        <ul ref={menuRef} className={styles.menu} style={{ top: y, left: x }}>
-            {options.map(op => <li key={op.title}>{op.icon} {op.title}</li>)}
+        <ul ref={menuRef} className={styles.menu} style={{ top: y, left: x }} onClick={(e) => e.preventDefault()}>
+            {options.map(op => <li key={op.title} onClick={op.func}>{op.icon} {op.title}</li>)}
         </ul>
     )
 }

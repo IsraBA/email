@@ -41,7 +41,7 @@ export default function Labels() {
                 <button><FontAwesomeIcon icon={faEllipsisVertical} /></button>
             </div>
             <ul className={styles.labelList}>
-                {labels.map(lab => <ListLabel lab={lab} key={lab.content}/>)}
+                {labels.map(lab => <ListLabel lab={lab} key={lab.content} setLabels={setLabels} labels={labels}/>)}
             </ul>
         </div>
     )

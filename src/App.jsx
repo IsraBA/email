@@ -10,10 +10,15 @@ function App() {
 
   return (
     <div className='app'>
-      <Popup/>
+      <Popup />
       <Routes>
         <Route path='login' element={<>Login</>} />
         <Route path='/' element={<Layout />}>
+          <Route path='speed' element={<>speed</>} />
+          <Route path='reminders' element={<>reminders</>} />
+          <Route path='views' element={<>views</>} />
+          <Route path='statistics' element={<>statistics</>} />
+          <Route path='videoCalls' element={<>videoCalls</>} />
           <Route path='messages' element={<MailBox />}>
             <Route path=':type' element={<Chats />}>
               <Route path=':id' element={<Chat />}>

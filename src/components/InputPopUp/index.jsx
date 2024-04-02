@@ -4,12 +4,12 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePopUp } from '../../Context/PopupContext';
 
-export default function InputPopUp({ message, placeholder = 'Type here...', submit, labels = [] }) {
+export default function InputPopUp({ message, placeholder = 'Type here...', submit, labels = [], color = '#000000'}) {
 
     const { setPopUpComp } = usePopUp();
 
     const [value, setValue] = useState('');
-    const [color, setColor] = useState('#000000');
+    const [newColor, setNewColor] = useState('');
     const [beat, setBeat] = useState(false);
     const [err, setErr] = useState('')
 
@@ -22,7 +22,7 @@ export default function InputPopUp({ message, placeholder = 'Type here...', subm
                 setErr('* label already exists');
                 return;
             }
-            submit({ content: trimedValue, color });
+            submit({ content: trimedValue, color: newColor ? newColor : color});
             setPopUpComp(false);
         }
     };
@@ -48,8 +48,8 @@ export default function InputPopUp({ message, placeholder = 'Type here...', subm
                 <label className={styles.colorInput}>
                     <input
                         type="color"
-                        value={color}
-                        onChange={(e) => setColor(e.target.value)}
+                        value={newColor ? newColor : color}
+                        onChange={(e) => setNewColor(e.target.value)}
                         className={styles.colorPicker}
                     />
                     Choose label color
