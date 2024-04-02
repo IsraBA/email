@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisVertical, faPlus, faTag } from '@fortawesome/free-solid-svg-icons'
 import { usePopUp } from '../../Context/PopupContext';
 import InputPopUp from '../InputPopUp';
+import ListLabel from '../ListLabel';
 
 export default function Labels() {
 
@@ -17,7 +18,7 @@ export default function Labels() {
         { content: 'In acceptance', color: 'lightskyblue' },
         { content: 'Read later', color: 'mediumpurple' },
     ])
-    const [isHovered , setIsHovered ] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
     const addLabel = () => {
         setPopUpComp(<InputPopUp
@@ -40,10 +41,7 @@ export default function Labels() {
                 <button><FontAwesomeIcon icon={faEllipsisVertical} /></button>
             </div>
             <ul className={styles.labelList}>
-                {labels.map(lab => <li key={lab.content} className={styles.label}>
-                    <span><FontAwesomeIcon icon={faTag} color={lab.color} /></span>
-                    <p>{lab.content}</p>
-                </li>)}
+                {labels.map(lab => <ListLabel lab={lab} key={lab.content}/>)}
             </ul>
         </div>
     )

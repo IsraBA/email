@@ -9,7 +9,7 @@ import MessageInput from '../NewMsgText';
 export default function Chat() {
 
   const fakeData = {
-    image: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg',
+    image: 'https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8',
     labels: ["Work", "Promising offers"],
     subject: "Meeting with new investors",
     messages: [
