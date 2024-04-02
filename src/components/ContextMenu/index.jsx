@@ -14,7 +14,7 @@ export default function ContextMenu({ x, y, options = [{ icon: '', title: '' }],
 
         document.addEventListener('mousedown', handleMouseOutside);
         return () => {
-            document.addEventListener('mousedown', handleMouseOutside);
+            document.removeEventListener('mousedown', handleMouseOutside);
         }
     }, [closeMenu])
 
