@@ -7,6 +7,7 @@ import { faArrowLeft, faEnvelope, faInbox, faPaperPlane, faPen, faStar, faTrash 
 import { Outlet } from 'react-router-dom'
 import { usePopUp } from '../../Context/PopupContext'
 import Labels from '../Labels'
+import api from '../../functions/api'
 
 
 export default function MailBox() {
@@ -33,13 +34,13 @@ export default function MailBox() {
           <li><MailBoxOption
             icon={<FontAwesomeIcon icon={faPaperPlane} />}
             title='Sent Emails'
-            link='/messages/sent_emails'
+            link='/messages/sent'
             notificationsNum={0}
           /></li>
           <li><MailBoxOption
             icon={<FontAwesomeIcon icon={faStar} />}
             title='Favourites'
-            link='/messages/favourites'
+            link='/messages/favorite'
             notificationsNum={0}
           /></li>
           <li><MailBoxOption
