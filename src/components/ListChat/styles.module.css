@@ -16,11 +16,60 @@
     background-color: var(--sub-color);
 }
 
-.msgBlock img {
-    height: 73%;
+.singleImg {
+    height: 75%;
     border-radius: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
+}
+
+.multiImg {
+    height: 75%;
+    aspect-ratio: 1/1;
+    /* border: 2px solid black; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.multiImg img {
+    /* height: 45%; */
+    width: 100%;
+    padding: 1px;
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.threeImg  img:nth-child(2){
+    grid-row: 1/3;
+    grid-column: 2/3;
+    justify-self: center;
+    align-self: center;
+}
+
+.moreImg {
+    border-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.256);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1px;
+}
+
+.moreImg p {
+    margin: auto;
+    color: rgba(0, 0, 0, 0.653);
+    font-size: small;
+}
+
+.multiSender{
+    display: flex;
+}
+.members{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 170px;
 }
 
 .senderAndMsg {
@@ -30,6 +79,7 @@
 
 .senderAndMsg h3 {
     font-weight: 550;
+    /* font-size: 17px; */
 }
 
 .senderAndMsg p {
@@ -64,6 +114,11 @@
     white-space: nowrap;
     top: 0px;
     right: 0px;
-    font-size: smaller;
+    font-size: 10px;
     color: gray;
+}
+
+.read{
+    font-size: 21px;
+    color: var(--main-color);
 }

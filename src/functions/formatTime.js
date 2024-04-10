@@ -1,15 +1,15 @@
-export default function formatTime(timeString) {
+export default function formatTime(timeString = '') {
     const now = new Date();
-    const [dateString, time] = timeString.split(' ');
-    const [day, month, year] = dateString.split('.');
-    const messageDate = new Date(`${year}/${month}/${day}`);
-    const messageTime = new Date(`${year}/${month}/${day} ${time}`);
+    const messageTime = new Date(timeString);
 
-    if (messageDate.toDateString() === now.toDateString()) {
+    if (messageTime.toDateString() === now.toDateString()) {
         return messageTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    } else if (messageDate.toDateString() === new Date(now.setDate(now.getDate() - 1)).toDateString()) {
+    } else if (messageTime.toDateString() === new Date(now.setDate(now.getDate() - 1)).toDateString()) {
         return 'Yesterday';
     } else {
+        const year = messageTime.getFullYear();
+        const month = (messageTime.getMonth() + 1).toString().padStart(2, '0');
+        const day = messageTime.getDate().toString().padStart(2, '0');
         return `${year}/${month}/${day}`;
     }
 }

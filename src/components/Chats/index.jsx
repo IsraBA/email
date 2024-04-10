@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './styles.module.css'
 import Search from '../Search'
-import Message from '../Message'
+import ListChat from '../ListChat'
 import { Outlet, useParams } from 'react-router-dom'
 import api from '../../functions/api'
 import { useEffect } from 'react'
@@ -113,13 +113,13 @@ export default function Chats() {
         </div>
         <ul className={styles.msgList}>
           {messages.map(chat => {
-            return (<Message
+            return (<ListChat
               key={chat._id}
               link={`/messages/${type}/${chat._id}`}
-              image={memberImages(chat.image)}
-              sender={memberNames(chat.members)}
-              time={chat.chat.lastDate}
-              subject={chat.subject}
+              image={memberImages(chat.chat?.members)}
+              sender={memberNames(chat.chat?.members)}
+              time={chat.chat?.lastDate}
+              subject={chat.chat?.subject}
               isRead={chat.isRead}
             />)
           })}
