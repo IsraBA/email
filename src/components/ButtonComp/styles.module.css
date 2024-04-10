@@ -1,4 +1,4 @@
-.btn{
+.btn {
     height: 40px;
     width: 100%;
     border: none;
@@ -13,4 +13,8 @@
     border-radius: 8px;
     fill: white;
     cursor: pointer;
+}
+
+.btn:hover {
+    filter: brightness(1.05);
 }
