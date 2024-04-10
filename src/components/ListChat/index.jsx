@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default function ListChat({ link, image, sender, subject, time, isRead }) {
     return (
         <NavLink to={link} className={styles.msgBlock}>
+            {/* בירור כמה אנשים משתתפים בצ'אט ומה להציג על פי זה */}
             {Array.isArray(image) ?
                 <div className={
                     image.length > 4 ? styles.multiImg :
@@ -30,6 +31,7 @@ export default function ListChat({ link, image, sender, subject, time, isRead })
                     : <h3>{sender}</h3>}
                 <p>{subject}</p>
             </div>
+            {/* ---------------------------------------------------- */}
             <div className={styles.timeAndNotf}>
                 <div className={styles.time}>{formatTime(time)}</div>
                 {!isRead && <div className={styles.read}><FontAwesomeIcon icon={faEnvelope} /></div>}

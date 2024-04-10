@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import styles from './styles.module.css'
 import Label from '../Label';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPrint, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import SingleMsg from '../SingleMsg';
 import MessageInput from '../NewMsgText';
+import api from '../../functions/api';
+import formatTime from '../../functions/formatTime'
 
 export default function Chat() {
+
+  const { chatId } = useParams();
+
+  const [chat, setChat] = useState({});
+
+  useEffect(() => {
+    api.get('chat/singleChat/' + chatId).then(setChat);
+  }, [chatId])
 
   const fakeData = {
     image: 'https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8',
@@ -32,15 +43,18 @@ export default function Chat() {
         _id: 3
       }
     ],
-    lastMsgTime: "Today, 16.09.2020, 11:26"
+    lastDate: "Today, 16.09.2020, 11:26"
   }
 
-  const { image, labels, lastMsgTime, subject, messages } = fakeData;
+  const { image } = fakeData;
+  // const { subject, messages, members, lastDate } = chat?.chat;
+  const { subject, messages, lastDate, members,} = chat?.chat || {};
+  const { labels, isFavorite } = chat;
 
   return (
     <div className={styles.chat}>
       <div className={styles.head}>
-        <div className={styles.labels}>{labels.map(lab => <Label key={lab} text={lab} />)}</div>
+        <div className={styles.labels}>{labels?.map(lab => <Label key={lab} text={lab} />)}</div>
         <div className={styles.icons}>
           <span><FontAwesomeIcon icon={faStar} /></span>
           <span><FontAwesomeIcon icon={faPrint} /></span>
@@ -49,15 +63,15 @@ export default function Chat() {
         </div>
       </div>
       <div className={styles.subject}>
-        <p className={styles.lastMsgTime}>{lastMsgTime}</p>
+        <p className={styles.lastDate}>{formatTime(lastDate)}</p>
         <h1>{subject}</h1>
       </div>
       <ul className={styles.msgs}>
-        {messages.map(msg => <li key={msg._id}>
-          <SingleMsg image={image} message={msg.message} sender={msg.sender} time={msg.time}/>
+        {messages?.map(msg => <li key={msg._id}>
+          <SingleMsg image={msg.from.image} message={msg.content} sender={msg.from.userName} time={formatTime(msg.date)} />
         </li>)}
       </ul>
-      <MessageInput/>
+      <MessageInput />
     </div>
   )
 }

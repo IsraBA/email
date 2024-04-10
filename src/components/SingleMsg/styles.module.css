@@ -76,7 +76,7 @@
 .openMsg p {
     width: 100%;
     padding-top: 50px;
-    margin: 0 -100px 15px -110px;
+    margin: 0 -30px 15px -110px;
     /* transform: scale(1.2); */
     color: black;
     transition: 0.2s;
