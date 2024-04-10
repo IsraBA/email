@@ -7,12 +7,13 @@ import { faArrowLeft, faEnvelope, faInbox, faPaperPlane, faPen, faStar, faTrash 
 import { Outlet } from 'react-router-dom'
 import { usePopUp } from '../../Context/PopupContext'
 import Labels from '../Labels'
-import api from '../../functions/api'
+import {useNavigate } from 'react-router-dom'
 
 
 export default function MailBox() {
 
   const { setPopUpComp } = usePopUp();
+  const nav = useNavigate();
 
   return (
     <>
@@ -22,7 +23,7 @@ export default function MailBox() {
             <button className={styles.back}><FontAwesomeIcon icon={faArrowLeft} /></button>
             <h1>MailBox</h1>
           </div>
-          <ButtonComp titleAndIcon={[<FontAwesomeIcon icon={faEnvelope} />, 'New message']} click={() => setPopUpComp(<>hello</>)} />
+          <ButtonComp titleAndIcon={[<FontAwesomeIcon icon={faEnvelope} />, 'New message']} click={() => nav('newMessage')} />
         </div>
         <ul className={styles.subjects}>
           <li><MailBoxOption
