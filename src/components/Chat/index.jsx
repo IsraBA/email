@@ -5,7 +5,7 @@ import Label from '../Label';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPrint, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import SingleMsg from '../SingleMsg';
-import MessageInput from '../NewMsgText';
+import MessageInput from '../NewMsgForm';
 import api from '../../functions/api';
 import formatTime from '../../functions/formatTime'
 

@@ -8,8 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faImage, faPaperPlane, faPaperclip, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { usePopUp } from '../../Context/PopupContext';
 import Confirm from '../Confirm';
+import api from '../../functions/api';
 
-export default function MessageInput() {
+export default function NewMsgForm({ chatId = '', members = [], subject = '' }) {
 
     const { setPopUpComp } = usePopUp();
 
@@ -19,19 +20,43 @@ export default function MessageInput() {
         setMessage(value);
     };
 
-    const handleSubmit = () => {
-        // TODO: send the message
-        console.log(message);
-    };
-
     const deleteMsg = () => {
         if (message !== '') {
             setPopUpComp(<Confirm func={() => setMessage('')} message={'Are you sure you want to delete the message?'} />)
         }
-    }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const fd = new FormData();
+        if (chatId) {
+
+        } else {
+            const messages = [
+                {
+                    date: new Date(),
+                    content: message,
+                    from: "66168d588eea0054ac8a279c"
+                }
+            ]
+
+            fd.append('subject', subject);
+            fd.append('messages', JSON.stringify(messages));
+            fd.append('lastDate', new Date());
+            fd.append('members', JSON.stringify(members));
+            // fd.append('addFile', e.target.addFile.files[0]);
+            // fd.append('image', e.target.image.files[0]);
+
+            api.post('chat', fd)
+        }
+        // for (let pair of fd.entries()) {
+        //     console.log(pair[0] + ', ' + pair[1]);
+        // }
+    };
 
     return (
-        <div className={styles.newMsgInput}>
+        <form className={styles.newMsgInput} onSubmit={handleSubmit}>
             <ReactQuill
                 value={message}
                 onChange={handleMessageChange}
@@ -54,25 +79,23 @@ export default function MessageInput() {
             />
             <div className={styles.msgOption}>
                 <div className={styles.options}>
-                    <form>
-                        <label className={styles.option}>
-                            <FontAwesomeIcon icon={faPaperclip} />
-                            <input className={styles.upload} type="file" />
-                        </label>
-                        <label className={styles.option}>
-                            <FontAwesomeIcon icon={faImage} />
-                            <input className={styles.upload} type="file" />
-                        </label>
-                    </form>
+                    <label className={styles.option}>
+                        <FontAwesomeIcon icon={faPaperclip} />
+                        <input className={styles.upload} type="file" name='addFile' />
+                    </label>
+                    <label className={styles.option}>
+                        <FontAwesomeIcon icon={faImage} />
+                        <input className={styles.upload} type="file" name='image' />
+                    </label>
                 </div>
                 <div className={styles.options}>
                     <button className={styles.option} onClick={deleteMsg}><FontAwesomeIcon icon={faTrash} /></button>
                     <button className={styles.option}><FontAwesomeIcon icon={faEllipsisVertical} /></button>
                     <div className={styles.send}>
-                        <ButtonComp titleAndIcon={['Send', <FontAwesomeIcon icon={faPaperPlane} />]} click={handleSubmit} />
+                        <ButtonComp titleAndIcon={['Send', <FontAwesomeIcon icon={faPaperPlane} />]} type='submit' />
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     );
 };

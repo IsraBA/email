@@ -5,7 +5,7 @@ import MailBox from './components/MailBox'
 import Chats from './components/Chats'
 import Chat from './components/Chat'
 import Popup from './components/Popup'
-import NewMsg from '../pages/NewMsg'
+import NewMsg from './pages/NewMsg'
 
 function App() {
 
