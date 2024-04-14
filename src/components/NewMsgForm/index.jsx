@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 import ReactQuill from 'react-quill';
@@ -8,11 +9,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faImage, faPaperPlane, faPaperclip, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { usePopUp } from '../../Context/PopupContext';
 import Confirm from '../Confirm';
+import apiToast from '../../functions/apiToast';
 import api from '../../functions/api';
 
-export default function NewMsgForm({ chatId = '', members = [], subject = '' }) {
+
+export default function NewMsgForm({ outerChatId = '', chatId = '', members = [], subject = '', setChat }) {
 
     const { setPopUpComp } = usePopUp();
+
+    const nav = useNavigate();
 
     const [message, setMessage] = useState('');
 
@@ -28,18 +33,26 @@ export default function NewMsgForm({ chatId = '', members = [], subject = '' }) 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const fd = new FormData();
         if (chatId) {
-
+            const messages = {
+                date: new Date(),
+                content: message,
+                // TODO: להחליף לאי די של השולח האמיתי
+                from: "66168d588eea0054ac8a279c"
+            }
+            apiToast.put('chat/' + chatId, messages, {}, "Sending Message...", "Message send", "Sending message failed")
+            .then(() => { 
+                api.get('chat/singleChat/' + outerChatId).then(res => setChat(res)),
+                 setMessage('')
+                });
         } else {
-            const messages = [
-                {
+            const fd = new FormData();
+            const messages = [{
                     date: new Date(),
                     content: message,
+                    // TODO: להחליף לאי די של השולח האמיתי
                     from: "66168d588eea0054ac8a279c"
-                }
-            ]
+                }]
 
             fd.append('subject', subject);
             fd.append('messages', JSON.stringify(messages));
@@ -48,16 +61,15 @@ export default function NewMsgForm({ chatId = '', members = [], subject = '' }) 
             // fd.append('addFile', e.target.addFile.files[0]);
             // fd.append('image', e.target.image.files[0]);
 
-            api.post('chat', fd)
+            apiToast.post('chat', fd, {}, "Sending Message...", "Message send", "Sending message failed")
+            .then(() => nav('/messages/inbox'));
         }
-        // for (let pair of fd.entries()) {
-        //     console.log(pair[0] + ', ' + pair[1]);
-        // }
     };
 
     return (
         <form className={styles.newMsgInput} onSubmit={handleSubmit}>
             <ReactQuill
+                className='editComp'
                 value={message}
                 onChange={handleMessageChange}
                 theme="snow"

@@ -77,9 +77,12 @@
     width: 100%;
     padding-top: 50px;
     margin: 0 -30px 15px -110px;
-    /* transform: scale(1.2); */
     color: black;
     transition: 0.2s;
+    font-size: 17px;
+}
+.openMsg p *{
+    font-size: 17px;
 }
 
 .time {

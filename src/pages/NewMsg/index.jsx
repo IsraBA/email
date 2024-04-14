@@ -1,15 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
-import InputPopUp from '../../components/InputPopUp'
-import ButtonComp from '../../components/ButtonComp'
-import ReactQuill from 'react-quill'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisVertical, faImage, faPaperPlane, faPaperclip, faTrash, faX } from '@fortawesome/free-solid-svg-icons'
-import { usePopUp } from '../../Context/PopupContext'
-import Confirm from '../../components/Confirm'
 import api from '../../functions/api'
 import { isValidEmail } from '../../functions/isValidEmail'
 import NewMsgForm from '../../components/NewMsgForm'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
 export default function NewMsg() {
 
