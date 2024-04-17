@@ -19,6 +19,7 @@
     align-items: center;
     gap: 7px;
     cursor: pointer;
+    color: black;
 }
 
 .menu li:hover{

@@ -4,7 +4,7 @@ import { faReply } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactQuill from 'react-quill';
 
-export default function SingleMsg({ image, sender, message, time }) {
+export default function SingleMsg({ image, sender, message, time, senderId }) {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -21,10 +21,13 @@ export default function SingleMsg({ image, sender, message, time }) {
     return (
         <div className={isOpen ? styles.openMsg : styles.closeMsg} onClick={(e) => setIsOpen(!isOpen)}>
             <span className={styles.senderDetails}>
-                {sender == "You" ?
+                {/* TODO: להחליף ליוזר האמיתי */}
+                {senderId == "66168d588eea0054ac8a279c" ?
                     <span className={styles.icon}><FontAwesomeIcon icon={faReply} fontSize={30} /></span> :
                     <img className={styles.profile} src={image} alt="profile picture" />}
-                <span className={styles.sender}>{sender}</span>
+                {senderId == "66168d588eea0054ac8a279c" ?
+                <span className={styles.sender}>you</span>:
+                <span className={styles.sender}>{sender}</span>}
             </span>
             {isOpen ? <div className={styles.msg} onClick={(e) => { e.stopPropagation(), setIsOpen(true) }}>
                 <ReactQuill value={message} readOnly theme='bubble' className='readOnlyComp'/>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import formatTime from '../../functions/formatTime'
 import { NavLink } from 'react-router-dom'
@@ -15,6 +15,10 @@ export default function ListChat({ id, link, image, sender, subject, time, isRea
             api.put('chat/markAsRead/' + id).then(() => setIsReadIndication(true))
         }
     };
+
+    useEffect(() => {
+        setIsReadIndication(isRead);
+    }, [isRead]);
 
     return (
         <NavLink to={link} className={styles.msgBlock} onClick={markAsRead}>

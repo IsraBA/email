@@ -77,14 +77,19 @@ export default function Chats() {
   //     _id: 8
   //   }
   // ]
-  const [messages, setMessages] = useState([])
+  const [chats, setChats] = useState([]);
   // const [filterdMessages, setFilterdMessages] = useState([]);
 
 
   useEffect(() => {
-    api.get('chat/' + type).then(setMessages);
-    // setFilterdMessages(messages);
+    setChats([]);
+    api.get('chat/' + type).then(setChats);
+    // setFilterdMessages(chats);
   }, [type])
+
+  // useEffect(() => {
+  //   console.log("chats: ", chats)
+  // }, [chats])
 
   const memberImages = (members = [], userId = "66128823d5cbfbbc8fa1ab14") => {
     if (members.length > 2) {
@@ -108,11 +113,11 @@ export default function Chats() {
     <>
       <div className={styles.chats}>
         <div className={styles.search}>
-          {/* <Search setFilterdMessages={setFilterdMessages} filterdMessages={filterdMessages} chats={messages} /> */}
-          <Search chats={messages} />
+          {/* <Search setFilterdMessages={setFilterdMessages} filterdMessages={filterdMessages} chats={chats} /> */}
+          <Search chats={chats} />
         </div>
         <ul className={styles.msgList}>
-          {messages.map(chat => {
+          {chats.map(chat => {
             return (<ListChat
               key={chat._id}
               id={chat._id}
@@ -126,7 +131,7 @@ export default function Chats() {
           })}
         </ul>
       </div>
-      <Outlet />
+      <Outlet context={{setChats}}/>
     </>
   )
 }
