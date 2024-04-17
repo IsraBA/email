@@ -3,16 +3,20 @@ import styles from './styles.module.css'
 import { faReply } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactQuill from 'react-quill';
-import sanitizeHtml from 'sanitize-html';
 
 export default function SingleMsg({ image, sender, message, time }) {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const plainText = sanitizeHtml(message, {
-        allowedTags: [],
-        allowedAttributes: {},
-    });
+    const htmlToPlainText = (html) => {
+        // Replace <br> tags with newline characters
+        let plainText = html.replace(/<br\s*\/?>/gi, '\n');
+      
+        // Remove all other HTML tags
+        plainText = plainText.replace(/<[^>]+>/g, '');
+      
+        return plainText;
+      };
 
     return (
         <div className={isOpen ? styles.openMsg : styles.closeMsg} onClick={(e) => setIsOpen(!isOpen)}>
@@ -22,9 +26,9 @@ export default function SingleMsg({ image, sender, message, time }) {
                     <img className={styles.profile} src={image} alt="profile picture" />}
                 <span className={styles.sender}>{sender}</span>
             </span>
-            {isOpen ? <p className={styles.msg} onClick={(e) => { e.stopPropagation(), setIsOpen(true) }}>
+            {isOpen ? <div className={styles.msg} onClick={(e) => { e.stopPropagation(), setIsOpen(true) }}>
                 <ReactQuill value={message} readOnly theme='bubble' className='readOnlyComp'/>
-            </p> : <p className={styles.msg}>{plainText}</p>}
+            </div> : <div className={styles.msg}>{htmlToPlainText(message)}</div>}
             <span className={styles.time}>{time}</span>
         </div>
     )

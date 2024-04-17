@@ -33,7 +33,7 @@
     /* border: 1px solid black; */
 }
 
-.openMsg .senderDetails{
+.openMsg .senderDetails {
     height: 59px;
 }
 
@@ -65,7 +65,7 @@
     width: 100px;
 }
 
-.closeMsg p {
+.closeMsg .msg {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -73,7 +73,7 @@
     transition: 0.2s;
 }
 
-.openMsg p {
+.openMsg .msg {
     width: 100%;
     padding-top: 50px;
     margin: 0 -30px 15px -110px;
@@ -81,7 +81,8 @@
     transition: 0.2s;
     font-size: 17px;
 }
-.openMsg p *{
+
+.openMsg .msg * {
     font-size: 17px;
 }
 

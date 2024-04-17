@@ -115,6 +115,7 @@ export default function Chats() {
           {messages.map(chat => {
             return (<ListChat
               key={chat._id}
+              id={chat._id}
               link={`/messages/${type}/${chat._id}`}
               image={memberImages(chat.chat?.members)}
               sender={memberNames(chat.chat?.members)}

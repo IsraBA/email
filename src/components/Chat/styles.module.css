@@ -34,11 +34,14 @@
     color: gray;
 }
 
-.icons span{
+.icons button{
     cursor: pointer;
     padding: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
 }
-.icons span:hover{
+.icons button:hover{
     color: var(--main-color);
 }
 

@@ -11,7 +11,8 @@ export default function NewMsg() {
     const [inputMembers, setInputMembers] = useState('');
     const [offerMembers, setOfferMembers] = useState([]);
     const [sendTo, setSendTo] = useState([]);
-    const [err, setErr] = useState('');
+    const [emailErr, setEmailErr] = useState('');
+    const [subErr, setSubErr] = useState('');
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [subject, setSubject] = useState('');
 
@@ -19,7 +20,7 @@ export default function NewMsg() {
 
     const handleInputChange = (e) => {
         let value = e.target.value;
-        setErr('');
+        setEmailErr('');
         setInputMembers(value);
         setOfferMembers([]);
 
@@ -44,7 +45,7 @@ export default function NewMsg() {
     const handleAdd = ({ email, _id }) => {
         if (!email) return;
         if (!isValidEmail(email)) {
-            setErr('* Invalid email address');
+            setEmailErr('* Invalid email address');
             return;
         }
         if (sendTo.find(member => member.email === email)) {
@@ -52,7 +53,7 @@ export default function NewMsg() {
         }
         setOfferMembers([]);
         setInputMembers('');
-        setErr('');
+        setEmailErr('');
         setSendTo([{ email, _id }, ...sendTo]);
         deleteAddressee.current.value = '';
     }
@@ -66,13 +67,14 @@ export default function NewMsg() {
             } else if (isValidEmail(inputMembers)) {
                 handleAdd({ email: inputMembers, _id: null });
             } else if (inputMembers) {
-                setErr('* Invalid email address');
+                setEmailErr('Invalid email address');
             } else { return }
         }
     };
 
     const handleSubject = (e) => {
         setSubject(e.target.value);
+        setSubErr('');
     };
 
     return (
@@ -83,7 +85,8 @@ export default function NewMsg() {
                     <label className={styles.headerLabels}>
                         <h3>Subject</h3>
                         <div className={styles.inputWrapper}>
-                            <input type="text" name="subject" className={styles.input} onChange={handleSubject}/>
+                            <input type="text" name="subject" className={styles.input} onChange={handleSubject} />
+                            {subErr && <p className={styles.err}>{subErr}</p>}
                         </div>
                     </label>
                     <label className={styles.headerLabels}>
@@ -104,7 +107,7 @@ export default function NewMsg() {
                                 Add
                             </button>
                             {/* הצגת שגיאה אם האימייל שהוכנס לא תקין */}
-                            {err && <p className={styles.err}>{err}</p>}
+                            {emailErr && <p key={emailErr} className={styles.err}>{emailErr}</p>}
                             {/* כפתור השלמה אימייל אוטומטית */}
                             {offerMembers.length > 0 &&
                                 <button
@@ -130,8 +133,13 @@ export default function NewMsg() {
                 </div>
                 <label className={styles.msgContent}>
                     <h3>Message</h3>
-                                    {/* להחליף למייל של היוזר */}
-                    <NewMsgForm members={[{email: "user2@example.com",_id:"66168d588eea0054ac8a279c"}, ...sendTo]} subject={subject} />
+                    {/* להחליף למייל של היוזר, אופציה נוספת זה להכניס את היוזר ששלח למערך בסרבר ולא כאן וככה למנוע כפילות */}
+                    <NewMsgForm
+                        members={[{ email: "user2@example.com", _id: "66168d588eea0054ac8a279c" }, ...sendTo]}
+                        subject={subject}
+                        setSubErr={setSubErr}
+                        setEmailErr={setEmailErr}
+                    />
                 </label>
             </div>
         </div>

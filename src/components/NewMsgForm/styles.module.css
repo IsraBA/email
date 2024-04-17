@@ -13,6 +13,36 @@
     justify-content: space-between;
 }
 
+.err {
+    animation: error 0.4s;
+    position: absolute;
+    left: 2px;
+    font-size: smaller;
+    color: rgb(241, 67, 67);
+}
+
+@keyframes error {
+    0% {
+        transform: translateX(-10px);
+    }
+
+    25% {
+        transform: translateX(10px);
+    }
+
+    50% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
 .send{
     width: 80px;
     margin-left: 20px;

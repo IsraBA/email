@@ -13,16 +13,26 @@ import apiToast from '../../functions/apiToast';
 import api from '../../functions/api';
 
 
-export default function NewMsgForm({ outerChatId = '', chatId = '', members = [], subject = '', setChat }) {
+export default function NewMsgForm({
+    outerChatId = '',
+    chatId = '',
+    members,
+    subject,
+    setChat,
+    setSubErr,
+    setEmailErr
+}) {
 
     const { setPopUpComp } = usePopUp();
 
     const nav = useNavigate();
 
     const [message, setMessage] = useState('');
+    const [msgErr, setMsgErr] = useState('');
 
     const handleMessageChange = (value) => {
         setMessage(value);
+        setMsgErr('');
     };
 
     const deleteMsg = () => {
@@ -33,6 +43,19 @@ export default function NewMsgForm({ outerChatId = '', chatId = '', members = []
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (subject === '') {
+            console.log("first")
+            setSubErr("Please enter a subject");
+            return;
+        }
+        if (members && members.length <= 1) {
+            setEmailErr("Please add members");
+            return;
+        }
+        if (message === '') {
+            setMsgErr("Please enter a message");
+            return;
+        }
         if (chatId) {
             const messages = {
                 date: new Date(),
@@ -41,18 +64,18 @@ export default function NewMsgForm({ outerChatId = '', chatId = '', members = []
                 from: "66168d588eea0054ac8a279c"
             }
             apiToast.put('chat/' + chatId, messages, {}, "Sending Message...", "Message send", "Sending message failed")
-            .then(() => { 
-                api.get('chat/singleChat/' + outerChatId).then(res => setChat(res)),
-                 setMessage('')
+                .then(() => {
+                    api.get('chat/singleChat/' + outerChatId).then(res => setChat(res)),
+                        setMessage('')
                 });
         } else {
             const fd = new FormData();
             const messages = [{
-                    date: new Date(),
-                    content: message,
-                    // TODO: להחליף לאי די של השולח האמיתי
-                    from: "66168d588eea0054ac8a279c"
-                }]
+                date: new Date(),
+                content: message,
+                // TODO: להחליף לאי די של השולח האמיתי
+                from: "66168d588eea0054ac8a279c"
+            }]
 
             fd.append('subject', subject);
             fd.append('messages', JSON.stringify(messages));
@@ -62,7 +85,7 @@ export default function NewMsgForm({ outerChatId = '', chatId = '', members = []
             // fd.append('image', e.target.image.files[0]);
 
             apiToast.post('chat', fd, {}, "Sending Message...", "Message send", "Sending message failed")
-            .then(() => nav('/messages/inbox'));
+                .then(() => nav('/messages/inbox'));
         }
     };
 
@@ -89,6 +112,8 @@ export default function NewMsgForm({ outerChatId = '', chatId = '', members = []
                 ]}
                 placeholder="Write your message..."
             />
+            {/* הצגת שגיאה אם אין הודעה */}
+            {msgErr && <p key={msgErr} className={styles.err}>{msgErr}</p>}
             <div className={styles.msgOption}>
                 <div className={styles.options}>
                     <label className={styles.option}>
@@ -101,8 +126,8 @@ export default function NewMsgForm({ outerChatId = '', chatId = '', members = []
                     </label>
                 </div>
                 <div className={styles.options}>
-                    <button className={styles.option} onClick={deleteMsg}><FontAwesomeIcon icon={faTrash} /></button>
-                    <button className={styles.option}><FontAwesomeIcon icon={faEllipsisVertical} /></button>
+                    <button type='button' className={styles.option} onClick={deleteMsg}><FontAwesomeIcon icon={faTrash} /></button>
+                    <button type='button' className={styles.option}><FontAwesomeIcon icon={faEllipsisVertical} /></button>
                     <div className={styles.send}>
                         <ButtonComp titleAndIcon={['Send', <FontAwesomeIcon icon={faPaperPlane} />]} type='submit' />
                     </div>

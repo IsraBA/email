@@ -99,7 +99,8 @@
 .err {
     animation: error 0.4s;
     position: absolute;
-    bottom: -28px;
+    bottom: -26px;
+    left: 10px;
     font-size: smaller;
     color: rgb(241, 67, 67);
 }

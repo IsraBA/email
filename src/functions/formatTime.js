@@ -1,4 +1,7 @@
 export default function formatTime(timeString = '') {
+
+    if (!timeString) return '';
+
     const now = new Date();
     const messageTime = new Date(timeString);
 

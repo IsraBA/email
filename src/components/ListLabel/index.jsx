@@ -43,6 +43,7 @@ export default function ListLabel({ lab, labels, setLabels }) {
                 <span><FontAwesomeIcon icon={faTag} color={lab.color} /></span>
                 <p>{lab.content}</p>
                 {menu && <ContextMenu x={menuPosition.x} y={menuPosition.y}
+                    direction={'up-right'}
                     closeMenu={() => setMenu(false)}
                     options={[
                         {

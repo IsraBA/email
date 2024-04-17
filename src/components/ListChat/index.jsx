@@ -1,14 +1,23 @@
-import React from 'react'
-import Notifications from '../Notifications'
+import React, { useState } from 'react'
 import styles from './styles.module.css'
 import formatTime from '../../functions/formatTime'
 import { NavLink } from 'react-router-dom'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import api from '../../functions/api'
 
-export default function ListChat({ link, image, sender, subject, time, isRead }) {
+export default function ListChat({ id, link, image, sender, subject, time, isRead }) {
+
+    const [isReadIndication, setIsReadIndication] = useState(isRead)
+
+    const markAsRead = () => {
+        if (!isRead) {
+            api.put('chat/markAsRead/' + id).then(() => setIsReadIndication(true))
+        }
+    };
+
     return (
-        <NavLink to={link} className={styles.msgBlock}>
+        <NavLink to={link} className={styles.msgBlock} onClick={markAsRead}>
             {/* בירור כמה אנשים משתתפים בצ'אט ומה להציג על פי זה */}
             {Array.isArray(image) ?
                 <div className={
@@ -34,7 +43,7 @@ export default function ListChat({ link, image, sender, subject, time, isRead })
             {/* ---------------------------------------------------- */}
             <div className={styles.timeAndNotf}>
                 <div className={styles.time}>{formatTime(time)}</div>
-                {!isRead && <div className={styles.read}><FontAwesomeIcon icon={faEnvelope} /></div>}
+                {!isReadIndication && <div className={styles.read}><FontAwesomeIcon icon={faEnvelope} /></div>}
             </div>
         </NavLink>
     )
