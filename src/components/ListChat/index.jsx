@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import formatTime from '../../functions/formatTime'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useOutletContext } from 'react-router-dom'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import api from '../../functions/api'
+import getHighlightedText from '../../functions/highlightText'
+import { useSearchHighlight } from '../../Context/HighlightContext'
 
-export default function ListChat({ id, link, image, sender, subject, time, isRead }) {
+export default function ListChat({ id, link, image, sender, subject, time, isRead, chats }) {
 
-    const [isReadIndication, setIsReadIndication] = useState(isRead)
+    const { setUnreadObj } = useOutletContext();
+
+    const { highlightText } = useSearchHighlight();
+
+    const [isReadIndication, setIsReadIndication] = useState(isRead);
 
     const markAsRead = () => {
         if (!isRead) {
-            api.put('chat/markAsRead/' + id).then(() => setIsReadIndication(true))
+            api.put('chat/markAsRead/' + id).then(() => {
+                setIsReadIndication(true);
+                api.get('chat/unreadCount/unreadObj').then(setUnreadObj);
+            });
         }
     };
 
     useEffect(() => {
-        setIsReadIndication(isRead);
-    }, [isRead]);
+        setIsReadIndication(isRead)
+    }, [chats]);
 
     return (
         <NavLink to={link} className={styles.msgBlock} onClick={markAsRead}>
@@ -38,11 +47,12 @@ export default function ListChat({ id, link, image, sender, subject, time, isRea
             <div className={styles.senderAndMsg}>
                 {Array.isArray(sender) ?
                     <div className={styles.multiSender}>
-                        <h3 className={styles.members}>{sender[0] + ', ' + sender[1] + ', '}</h3>
+                        {/* {''.toString()} */}
+                        <h3 className={styles.members}>{getHighlightedText(`${sender[0]}, ${sender[1]}, `, highlightText)}</h3>
                         {sender.length > 2 ? <h3>+{sender.length - 2}</h3> : null}
                     </div>
-                    : <h3>{sender}</h3>}
-                <p>{subject}</p>
+                    : <h3>{getHighlightedText(sender, highlightText)}</h3>}
+                <p>{getHighlightedText(subject, highlightText)}</p>
             </div>
             {/* ---------------------------------------------------- */}
             <div className={styles.timeAndNotf}>

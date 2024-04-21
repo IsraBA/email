@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import ButtonComp from '../ButtonComp'
 import MailBoxOption from '../MailBoxOption'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faEnvelope, faInbox, faPaperPlane, faPen, faStar, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Outlet } from 'react-router-dom'
-import { usePopUp } from '../../Context/PopupContext'
 import Labels from '../Labels'
-import {useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import api from '../../functions/api'
 
 
 export default function MailBox() {
 
-  const { setPopUpComp } = usePopUp();
   const nav = useNavigate();
+
+  const [unreadObj, setUnreadObj] = useState({
+    inbox: 0,
+    favorite: 0,
+    deleted: 0
+  })
+
+  useEffect(() => {
+    api.get('chat/unreadCount/unreadObj').then(setUnreadObj)
+  }, [])
+
 
   return (
     <>
@@ -30,36 +40,34 @@ export default function MailBox() {
             icon={<FontAwesomeIcon icon={faInbox} />}
             title='Inbox'
             link='/messages/inbox'
-            notificationsNum={0}
+            notificationsNum={unreadObj.inbox}
           /></li>
           <li><MailBoxOption
             icon={<FontAwesomeIcon icon={faPaperPlane} />}
             title='Sent Emails'
             link='/messages/sent'
-            notificationsNum={0}
           /></li>
           <li><MailBoxOption
             icon={<FontAwesomeIcon icon={faStar} />}
             title='Favourites'
             link='/messages/favorite'
-            notificationsNum={0}
+            notificationsNum={unreadObj.favorite}
           /></li>
           <li><MailBoxOption
             icon={<FontAwesomeIcon icon={faPen} />}
             title='Draft'
             link='/messages/draft'
-            notificationsNum={0}
           /></li>
           <li><MailBoxOption
             icon={<FontAwesomeIcon icon={faTrash} />}
             title='Deleted'
             link='/messages/deleted'
-            notificationsNum={0}
+            notificationsNum={unreadObj.deleted}
           /></li>
         </ul>
         <Labels />
       </div>
-      <Outlet />
+      <Outlet context={{ setUnreadObj }} />
     </>
   )
 }

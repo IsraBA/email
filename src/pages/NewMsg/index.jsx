@@ -5,6 +5,7 @@ import api from '../../functions/api'
 import { isValidEmail } from '../../functions/isValidEmail'
 import NewMsgForm from '../../components/NewMsgForm'
 import { faX } from '@fortawesome/free-solid-svg-icons'
+import { useLocation } from 'react-router-dom'
 
 export default function NewMsg() {
 
@@ -17,6 +18,15 @@ export default function NewMsg() {
     const [subject, setSubject] = useState('');
 
     const deleteAddressee = useRef(null);
+
+    const location = useLocation();
+    const { addressee } = location.state || {};
+
+    useEffect(() => {
+        if (addressee?.email) {
+            setSendTo([{ email: addressee.email, _id: addressee._id }]);
+        }
+    }, [addressee]);
 
     const handleInputChange = (e) => {
         let value = e.target.value;

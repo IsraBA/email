@@ -44,3 +44,8 @@ ul{
     background-color: var(--sub-color); /* color of the scrollbar track */
     border-radius: 4px;
 }
+
+/* body{
+    background-color: black;
+    color: white;
+} */

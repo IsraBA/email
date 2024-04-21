@@ -47,6 +47,8 @@
   }
   /* search icon */
   .icon {
+    background-color: transparent;
+    border: none;
     position: absolute;
     left: var(--padding);
     transition: 0.3s cubic-bezier(.4,0,.2,1);
@@ -81,18 +83,18 @@
     visibility: hidden;
   }
   
-  .search input:focus ~ .icon {
+  .search input:not(:placeholder-shown) ~ .icon {
     transform: rotate(var(--rotate)) scale(1.3);
   }
   
-  .search input:focus ~ .icon .swapOff {
+  .search input:not(:placeholder-shown) ~ .icon .swapOff {
     opacity: 1;
     transform: rotate(-80deg);
     visibility: visible;
     color: var(--icon-change-color);
   }
   
-  .search input:focus ~ .icon .swapOn {
+  .search input:not(:placeholder-shown) ~ .icon .swapOn {
     opacity: 0;
     visibility: visible;
   }

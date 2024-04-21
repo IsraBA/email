@@ -12,10 +12,11 @@ import { usePopUp } from '../../Context/PopupContext';
 import Confirm from '../Confirm';
 import apiToast from '../../functions/apiToast';
 import ContextMenu from '../ContextMenu';
+import MemberList from '../MemberList';
 
 export default function Chat() {
 
-  const { setChats } = useOutletContext();
+  const { setChats, setUnreadObj } = useOutletContext();
 
   const { setPopUpComp } = usePopUp();
 
@@ -104,8 +105,13 @@ export default function Chat() {
       "Marking as unread...", "Marked as unread", "Error marking as unread")
       .then(() => {
         setChats(prev => prev.map(chat => chat._id == chatId ? { ...chat, isRead: false } : chat));
+        api.get('chat/unreadCount/unreadObj').then(setUnreadObj);
       })
   };
+
+  const openMemberList = () => {
+      setPopUpComp(<MemberList members={chat?.chat?.members}/>)
+  }
 
   return (
     <div className={styles.chat}>
@@ -135,7 +141,7 @@ export default function Chat() {
               {
                 icon: <FontAwesomeIcon icon={faUsers} />,
                 title: 'Members list',
-                func: () => { }
+                func: () => openMemberList()
               },
               {
                 icon: <FontAwesomeIcon icon={faTag} />,
