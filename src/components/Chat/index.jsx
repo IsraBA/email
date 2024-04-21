@@ -13,6 +13,7 @@ import Confirm from '../Confirm';
 import apiToast from '../../functions/apiToast';
 import ContextMenu from '../ContextMenu';
 import MemberList from '../MemberList';
+import Loader from '../Loader';
 
 export default function Chat() {
 
@@ -42,7 +43,7 @@ export default function Chat() {
     }
   }, [chat]);
 
-  if (!chat) return null;
+  if (!chat.chat) return <Loader />;
 
   const openMenu = () => {
     // העברת המיקום של הכפתור לתפריט הנפתח
@@ -110,7 +111,7 @@ export default function Chat() {
   };
 
   const openMemberList = () => {
-      setPopUpComp(<MemberList members={chat?.chat?.members}/>)
+    setPopUpComp(<MemberList members={chat?.chat?.members} />)
   }
 
   return (

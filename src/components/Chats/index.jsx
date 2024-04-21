@@ -5,6 +5,7 @@ import ListChat from '../ListChat'
 import { Outlet, useOutletContext, useParams } from 'react-router-dom'
 import api from '../../functions/api'
 import { useEffect } from 'react'
+import Loader from '../Loader'
 
 
 export default function Chats() {
@@ -14,13 +15,15 @@ export default function Chats() {
   const { type } = useParams();
 
   const [chats, setChats] = useState([]);
+  const [loadChats, setLoadChats] = useState(true);
 
   const resetChats = () => {
-    api.get('chat/' + type).then(setChats);
+    setChats([]);
+    setLoadChats(true);
+    api.get('chat/' + type).then(res => { setChats(res), setLoadChats(false) });
   };
 
   useEffect(() => {
-    setChats([]);
     resetChats();
   }, [type])
 
@@ -50,23 +53,25 @@ export default function Chats() {
     <>
       <div className={styles.chats}>
         <div className={styles.search}>
-          <Search setChats={setChats} resetChats={resetChats} />
+          <Search setChats={setChats} resetChats={resetChats} setLoadChats={setLoadChats} />
         </div>
-        <ul className={styles.msgList}>
-          {chats.map(chat => {
-            return (<ListChat
-              key={chat._id}
-              id={chat._id}
-              link={`/messages/${type}/${chat._id}`}
-              image={memberImages(chat.chat?.members)}
-              sender={memberNames(chat.chat?.members)}
-              time={chat.chat?.lastDate}
-              subject={chat.chat?.subject}
-              isRead={chat.isRead}
-              chats={chats}
-            />)
-          })}
-        </ul>
+        {loadChats ? <Loader /> :
+          <ul className={styles.msgList}>
+            {chats.map(chat => {
+              return (<ListChat
+                key={chat._id}
+                id={chat._id}
+                link={`/messages/${type}/${chat._id}`}
+                image={memberImages(chat.chat?.members)}
+                sender={memberNames(chat.chat?.members)}
+                time={chat.chat?.lastDate}
+                subject={chat.chat?.subject}
+                isRead={chat.isRead}
+                chats={chats}
+              />)
+            })}
+          </ul>
+        }
       </div>
       <Outlet context={{ setChats, setUnreadObj }} />
     </>

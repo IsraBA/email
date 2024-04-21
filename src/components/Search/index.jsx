@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useSearchHighlight } from '../../Context/HighlightContext';
 
-export default function Search({ setChats, resetChats }) {
+export default function Search({ setChats, resetChats, setLoadChats }) {
 
     const { type } = useParams();
 
@@ -19,8 +19,11 @@ export default function Search({ setChats, resetChats }) {
         const trimmedText = textInput.trim();
         if (trimmedText !== '') {
             if (trimmedText !== lastSearchInput) {
+                setChats([]);
+                setLoadChats(true);
                 setLastSearchInput(trimmedText);
-                api.get('chat/' + type + '/search/' + textInput).then(setChats);
+                api.get('chat/' + type + '/search/' + textInput)
+                    .then(res => { setChats(res), setLoadChats(false) });
                 setHighlightText(textInput);
             }
         };
@@ -34,11 +37,15 @@ export default function Search({ setChats, resetChats }) {
         setHighlightText('');
     }
 
-    useEffect(() => {
-        if (textInput === '') {
+    const handleChange = (e) => {
+        setLastSearchInput('');
+        let value = e.target.value;
+        setTextInput(value);
+        if (value === '' && value !== lastSearchInput) {
             resetChats();
+            setHighlightText('');
         }
-    }, [textInput])
+    }
 
 
 
@@ -51,7 +58,7 @@ export default function Search({ setChats, resetChats }) {
                     placeholder="search your chats"
                     id="search"
                     type="text"
-                    onChange={(e) => setTextInput(e.target.value)}
+                    onChange={(e) => handleChange(e)}
                 />
                 <button className={styles.icon} type={textInput ? 'submit' : 'button'}>
                     <svg strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.swapOn}>
