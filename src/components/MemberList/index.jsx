@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './styles.module.css'
-import ButtonComp from '../ButtonComp'
-import { faEnvelope, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router-dom'
 import { usePopUp } from '../../Context/PopupContext'

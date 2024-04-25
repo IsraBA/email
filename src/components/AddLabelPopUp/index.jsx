@@ -4,7 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePopUp } from '../../Context/PopupContext';
 
-export default function InputPopUp({ message, placeholder = 'Type here...', submit, labels = [], color = '#000000'}) {
+export default function AddLabelPopUp({ message, placeholder = 'Type here...', submit, labels = [], color = '#000000'}) {
 
     const { setPopUpComp } = usePopUp();
 

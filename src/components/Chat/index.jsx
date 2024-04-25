@@ -14,6 +14,8 @@ import apiToast from '../../functions/apiToast';
 import ContextMenu from '../ContextMenu';
 import MemberList from '../MemberList';
 import Loader from '../Loader';
+import AddLabelPopUp from '../AddLabelPopUp';
+import LabelListPopUp from '../LabelListPopUp';
 
 export default function Chat() {
 
@@ -113,6 +115,10 @@ export default function Chat() {
   const openMemberList = () => {
     setPopUpComp(<MemberList members={chat?.chat?.members} />)
   }
+  
+  const openLabelList = () => {
+    setPopUpComp(<LabelListPopUp />)
+  }
 
   return (
     <div className={styles.chat}>
@@ -147,7 +153,7 @@ export default function Chat() {
               {
                 icon: <FontAwesomeIcon icon={faTag} />,
                 title: 'Add label',
-                func: () => { }
+                func: () => openLabelList()
               },
               {
                 icon: <FontAwesomeIcon icon={faEnvelope} />,

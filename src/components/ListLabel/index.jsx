@@ -5,7 +5,7 @@ import { faPen, faTag, faTrash } from '@fortawesome/free-solid-svg-icons'
 import ContextMenu from '../ContextMenu';
 import { usePopUp } from '../../Context/PopupContext';
 import Confirm from '../Confirm';
-import InputPopUp from '../InputPopUp';
+import InputPopUp from '../AddLabelPopUp';
 import { NavLink } from 'react-router-dom';
 
 export default function ListLabel({ lab, labels, setLabels }) {

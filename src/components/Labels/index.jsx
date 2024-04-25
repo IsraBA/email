@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisVertical, faPlus, faTag } from '@fortawesome/free-solid-svg-icons'
 import { usePopUp } from '../../Context/PopupContext';
-import InputPopUp from '../InputPopUp';
+import InputPopUp from '../AddLabelPopUp';
 import ListLabel from '../ListLabel';
 
 export default function Labels() {
