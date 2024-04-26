@@ -115,15 +115,17 @@ export default function Chat() {
   const openMemberList = () => {
     setPopUpComp(<MemberList members={chat?.chat?.members} />)
   }
-  
+
   const openLabelList = () => {
-    setPopUpComp(<LabelListPopUp />)
+    setPopUpComp(<LabelListPopUp existingChatLabels={chat.labels} chatId={chatId} setChat={setChat} />)
   }
 
   return (
     <div className={styles.chat}>
       <div className={styles.head}>
-        <div className={styles.labels}>{chat.labels?.map(lab => <Label key={lab} text={lab} />)}</div>
+        <div className={styles.labels}>{chat.labels?.map(lab => (
+          <Label key={lab.title} text={lab.title} color={lab.color} chatId={chatId} setChat={setChat} />)
+        )}</div>
         <div className={styles.icons}>
           {/* TODO: להוסיף פונקציונליות לכוכב ושאר האפשרויות */}
 
@@ -152,7 +154,7 @@ export default function Chat() {
               },
               {
                 icon: <FontAwesomeIcon icon={faTag} />,
-                title: 'Add label',
+                title: 'Manage labels',
                 func: () => openLabelList()
               },
               {

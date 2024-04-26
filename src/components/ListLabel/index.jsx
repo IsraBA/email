@@ -23,14 +23,14 @@ export default function ListLabel({ lab, labels, setLabels }) {
 
     const deleteLabel = (labelName) => {
         setPopUpComp(<Confirm message={`Are you sure you want to delete "${labelName}" label?`} func={
-            () => setLabels(prev => prev.filter(l => l.content !== labelName))
+            () => setLabels(prev => prev.filter(l => l.title !== labelName))
         } />)
     };
 
     const changeLabelName = (oldName) => {
         setPopUpComp(<InputPopUp
             message={'Change label name'}
-            submit={(newName) => setLabels(prev => [newName, ...prev.filter(l => l.content !== oldName)])}
+            submit={(newName) => setLabels(prev => [newName, ...prev.filter(l => l.title !== oldName)])}
             labels={labels}
             placeholder='Type here'
             color={lab.color}
@@ -38,10 +38,10 @@ export default function ListLabel({ lab, labels, setLabels }) {
     };
 
     return (
-        <NavLink to={'/messages/' + lab.content} className={styles.labelLink}>
+        <NavLink to={'/messages/' + lab.title} className={styles.labelLink}>
             <li className={styles.label} onContextMenu={openMenu}>
                 <span><FontAwesomeIcon icon={faTag} color={lab.color} /></span>
-                <p>{lab.content}</p>
+                <p>{lab.title}</p>
                 {menu && <ContextMenu x={menuPosition.x} y={menuPosition.y}
                     direction={'up-right'}
                     closeMenu={() => setMenu(false)}
@@ -49,12 +49,12 @@ export default function ListLabel({ lab, labels, setLabels }) {
                         {
                             icon: <FontAwesomeIcon icon={faPen} />,
                             title: 'Change name',
-                            func: () => changeLabelName(lab.content)
+                            func: () => changeLabelName(lab.title)
                         },
                         {
                             icon: <FontAwesomeIcon icon={faTrash} />,
                             title: 'Delete label',
-                            func: () => deleteLabel(lab.content)
+                            func: () => deleteLabel(lab.title)
                         },
                     ]} />}
             </li>

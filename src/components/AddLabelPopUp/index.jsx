@@ -17,12 +17,12 @@ export default function AddLabelPopUp({ message, placeholder = 'Type here...', s
         e.preventDefault();
         let trimedValue = value.trim();
         if (trimedValue) {
-            const isAlreadyExist = labels.find(label => label.content === trimedValue);
+            const isAlreadyExist = labels.find(label => label.title === trimedValue);
             if (isAlreadyExist) {
                 setErr('* label already exists');
                 return;
             }
-            submit({ content: trimedValue, color: newColor ? newColor : color});
+            submit({ title: trimedValue, color: newColor ? newColor : color});
             setPopUpComp(false);
         }
     };

@@ -6,7 +6,7 @@ import Chats from './components/Chats'
 import Chat from './components/Chat'
 import Popup from './components/Popup'
 import NewMsg from './pages/NewMsg'
-import { Bounce, ToastContainer } from 'react-toastify'
+import { Bounce, Slide, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
         draggable
         pauseOnHover
         theme="light"
-        transition={Bounce}
+        transition={Slide}
       />
       <Popup />
       <Routes>
