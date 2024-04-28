@@ -63,7 +63,7 @@ export default function Register() {
       })
       .catch(err => {
         console.log(err)
-        setError('Username or password incorrect')
+        setError('Email already exists')
       })
   }
 

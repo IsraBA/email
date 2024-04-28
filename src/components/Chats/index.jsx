@@ -7,6 +7,7 @@ import api from '../../functions/api'
 import { useEffect } from 'react'
 import Loader from '../Loader'
 import { useUser } from '../../Context/userContext'
+import NoChat from '../../pages/NoChat'
 
 
 export default function Chats() {
@@ -62,6 +63,7 @@ export default function Chats() {
           <Search setChats={setChats} resetChats={resetChats} setLoadChats={setLoadChats} />
         </div>
         {loadChats ? <Loader /> :
+          chats.length === 0 ? <NoChat msg={"There are no chats yet"}/> :
           <ul className={styles.msgList}>
             {chats.map(chat => {
               return (<ListChat

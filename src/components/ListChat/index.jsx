@@ -48,7 +48,7 @@ export default function ListChat({ id, link, image, sender = '', subject, time, 
                 {Array.isArray(sender) ?
                     <div className={styles.multiSender} title={sender.join(', ')}>
                         {/* {''.toString()} */}
-                        <h3 className={styles.members}>{getHighlightedText(`${sender[0]}, ${sender[1]}, `, highlightText)}</h3>
+                        <h3 className={styles.members}>{getHighlightedText(`${sender[0]}, ${sender[1]}, ${sender[2]}, ${sender[3]}, `, highlightText)}</h3>
                         {sender.length > 2 ? <h3>+{sender.length - 2}</h3> : null}
                     </div>
                     : <h3>{getHighlightedText(sender, highlightText)}</h3>}

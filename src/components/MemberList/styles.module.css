@@ -1,16 +1,14 @@
 .container {
     animation: confirmCont 0.3s ease-out;
     background-color: rgb(250, 250, 250);
-    padding: 30px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     /* gap: 10px; */
     max-height: 700px;
-    /* height: 700px; */
     max-width: 500px;
-    overflow-y: auto;
     border-radius: 20px;
     box-shadow: rgba(45, 35, 66, 0.2) 0 2px 4px, rgba(45, 35, 66, 0.266) 5px 7px 13px -3px, var(--main-color) -2px -3px 0 inset;
 }
@@ -34,15 +32,33 @@
     /* text-decoration: underline var(--main-color); */
 }
 
+.innerContainer{
+    padding: 0 10px;
+    overflow-y: auto;
+    direction: rtl;
+    width: 100%;
+}
+
 .member{
+    direction: ltr;
+    text-align: start;
     height: 80px;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     padding: 10px 0;
     border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+.details{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 }
 
 .member:last-child {
@@ -61,7 +77,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width: 100%;
+    width: 190px;
 }
 
 .email{
@@ -73,7 +89,7 @@
     height: 60%;
     padding: 9px 11px 9px 8px;
     /* padding: 8px; */
-    margin-left: 50px;
+    margin-left: auto;
     background-color: transparent;
     color: var(--main-color);
     display: flex;

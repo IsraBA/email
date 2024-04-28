@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { useUser } from '../../Context/userContext'
 import ContextMenu from '../ContextMenu'
 import { toast } from 'react-toastify'
+import chatsImg from '../../assets/chatsImg.png'
 
 
 export default function SideBar() {
@@ -43,7 +44,7 @@ export default function SideBar() {
 
   return (
     <div className={styles.container}>
-      <img className={styles.logo} style={{ margin: -15 }} src="https://yt3.googleusercontent.com/ytc/AIdro_nHyJlmHC-S-caZ8i6yGvR_LLL-UIyIAmGu6awacw=s900-c-k-c0x00ffffff-no-rj" alt="logo" />
+      <img className={styles.logo} src={chatsImg} alt="logo" />
       <nav className={styles.topics}>
         <NavLink to={'/speed'} onClick={() => setActiveLink('speed')} id={isActive('speed')}>
           <FontAwesomeIcon icon={faGaugeHigh} />

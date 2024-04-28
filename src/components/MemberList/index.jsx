@@ -17,21 +17,25 @@ export default function MemberList({ members = [] }) {
     };
 
     return (
-        <ul className={styles.container}>
+        <div className={styles.container}>
             <h2 className={styles.title}>Members in the chat</h2>
-            {members.map(m => <li className={styles.member} key={m._id}>
-                <img className={styles.profilePic} src={m.image} alt={m.userName + " profile picture"} />
-                <span>
-                    <h3 className={styles.memberName}>{m.userName}</h3>
-                    <p className={styles.email}>{m.email}</p>
-                </span>
-                <button
-                    className={styles.sendMsg}
-                    title='Send message'
-                    onClick={() => sendMsg(m)}>
-                    <FontAwesomeIcon icon={faPaperPlane} />
-                </button>
-            </li>)}
-        </ul>
+            <ul className={styles.innerContainer}>
+                {members.map(m => <li className={styles.member} key={m._id}>
+                    <div className={styles.details}>
+                        <img className={styles.profilePic} src={m.image} alt={m.userName + " profile picture"} />
+                        <span>
+                            <h3 className={styles.memberName}>{m.userName}</h3>
+                            <p className={styles.email}>{m.email}</p>
+                        </span>
+                    </div>
+                    <button
+                        className={styles.sendMsg}
+                        title='Send message'
+                        onClick={() => sendMsg(m)}>
+                        <FontAwesomeIcon icon={faPaperPlane} />
+                    </button>
+                </li>)}
+            </ul>
+        </div>
     )
 }
