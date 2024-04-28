@@ -4,7 +4,7 @@ import { Bounce, toast } from "react-toastify";
 const mainApi = async (method, path, data, headers, pending, success, error) => {
   try {
     let fainlPath = path.startsWith("/") ? path.slice(1) : path;
-    // let auth = localStorage.token ? { Authorization: "Bearer " + localStorage.token } : {};
+    let auth = localStorage.token ? { Authorization: "Bearer " + localStorage.token } : {};
 
     let baseUrl = 'http://localhost:3002/';
 
@@ -14,7 +14,7 @@ const mainApi = async (method, path, data, headers, pending, success, error) => 
       method,
       url,
       data,
-      //   headers: { ...headers, ...auth },
+        headers: { ...headers, ...auth },
     };
 
     let response = await toast.promise(axios(config), {

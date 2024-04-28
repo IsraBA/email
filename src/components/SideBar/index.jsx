@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarCheck, faChartSimple, faComments, faEye, faGaugeHigh, faHouse, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarCheck, faChartSimple, faComments, faCopy, faEye, faGaugeHigh, faRightFromBracket, faVideo } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
+import { useUser } from '../../Context/userContext'
+import ContextMenu from '../ContextMenu'
+import { toast } from 'react-toastify'
 
 
 export default function SideBar() {
 
-  const [activeLink, setActiveLink] = useState('')
+  const { user } = useUser();
+
+  const menuBtn = useRef(null);
+
+  const [menu, setMenu] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const [activeLink, setActiveLink] = useState('');
+
   const isActive = (path) => {
     return path == location.pathname.split('/')[1] ? styles.active : styles.inActive
   };
@@ -16,6 +26,20 @@ export default function SideBar() {
     isActive(activeLink)
   }, [location.pathname, activeLink])
 
+  const openMenu = () => {
+    // העברת המיקום של הכפתור לתפריט הנפתח
+    const rect = menuBtn.current.getBoundingClientRect();
+    const middleX = rect.left;
+    const middleY = rect.top;
+    setMenuPosition({ x: middleX, y: middleY - 10 });
+    setMenu(true);
+  };
+
+  const logOut = () => {
+    localStorage.removeItem('token');
+    // טעינת הדף ואיבוד הקונקסט
+    window.location.reload();
+  }
 
   return (
     <div className={styles.container}>
@@ -40,7 +64,27 @@ export default function SideBar() {
           <FontAwesomeIcon icon={faVideo} />
         </NavLink>
       </nav>
-      <img className={styles.profile} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3HdBqVDU45zUIDYvJbH1QE2kosJ0VrH0KEXee3n33PnskjPbyvDAUWYrChTGjCXHA2cc&usqp=CAU" alt="profile" />
+      <img
+        onClick={openMenu}
+        ref={menuBtn}
+        className={styles.profile}
+        src={user.image}
+        alt="profile"
+      />
+      {menu && <ContextMenu x={menuPosition.x} y={menuPosition.y}
+        direction={"down-right"}
+        closeMenu={() => setMenu(false)}
+        options={[
+          {
+            icon: <FontAwesomeIcon icon={faCopy} />,
+            title: <div><b>{user.userName},</b><div style={{fontSize: '12px'}}>{user.email}</div> </div>,
+            func: () => {navigator.clipboard.writeText(user.email); toast.success('Email copied to clipboard') }
+          }, {
+            icon: <FontAwesomeIcon icon={faRightFromBracket} />,
+            title: 'Log out',
+            func: () => logOut()
+          },
+        ]} />}
     </div>
   )
 }

@@ -3,7 +3,7 @@ import axios from "axios";
 const mainApi = async (method, path, data, headers) => {
   try {
     let fainlPath = path.startsWith("/") ? path.slice(1) : path;
-    // let auth = localStorage.token ? { Authorization: "Bearer " + localStorage.token } : {};
+    let auth = localStorage.token ? { Authorization: "Bearer " + localStorage.token } : {};
 
     let baseUrl = 'http://localhost:3002/';
 
@@ -13,13 +13,14 @@ const mainApi = async (method, path, data, headers) => {
       method,
       url,
       data,
-    //   headers: { ...headers, ...auth },
+      headers: { ...headers, ...auth },
     });
 
     console.log("Response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error:", error.message);
+    console.error("Error:", error?.response?.data);
     throw error;
   }
 };

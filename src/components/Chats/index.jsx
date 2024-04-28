@@ -6,10 +6,12 @@ import { Outlet, useOutletContext, useParams } from 'react-router-dom'
 import api from '../../functions/api'
 import { useEffect } from 'react'
 import Loader from '../Loader'
+import { useUser } from '../../Context/userContext'
 
 
 export default function Chats() {
 
+  const { user } = useUser();
   const { setUnreadObj } = useOutletContext();
 
   const { type } = useParams();
@@ -31,21 +33,25 @@ export default function Chats() {
   //   console.log("chats: ", chats)
   // }, [chats])
 
-  const memberImages = (members = [], userId = "66128823d5cbfbbc8fa1ab14") => {
+  const memberImages = (members = []) => {
     if (members.length > 2) {
       return members.map(member => member.image);
-    } else {
+    } else if (members.length === 2)  {
       // קבלת התמונה של מי שמשתתף איתנו בשיחה
-      return members.find(m => m._id !== userId)?.image;
+      return members.find(m => m._id !== user._id)?.image;
+    } else {
+      return members[0].image;
     }
   };
-  //                                               להחליף בקונטקסט
-  const memberNames = (members = [], userId = "66128823d5cbfbbc8fa1ab14") => {
+
+  const memberNames = (members = []) => {
     if (members.length > 2) {
       return members.map(member => member.userName);
-    } else {
+    } else if (members.length === 2) {
       // קבלת השם של מי שמשתתף איתנו בשיחה
-      return members.find(m => m._id !== userId)?.userName;
+      return members.find(m => m._id !== user._id)?.userName;
+    } else {
+      return members[0].userName;
     }
   };
 

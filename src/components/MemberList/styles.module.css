@@ -8,6 +8,7 @@
     justify-content: center;
     /* gap: 10px; */
     max-height: 700px;
+    /* height: 700px; */
     max-width: 500px;
     overflow-y: auto;
     border-radius: 20px;

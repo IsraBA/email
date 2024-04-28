@@ -5,9 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactQuill from 'react-quill';
 import getHighlightedText from '../../functions/highlightText';
 import { useSearchHighlight } from '../../Context/HighlightContext';
+import { useUser } from '../../Context/userContext';
 
 export default function SingleMsg({ image, sender, message, time, senderId }) {
 
+    const { user } = useUser();
     const { highlightText } = useSearchHighlight();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -25,11 +27,10 @@ export default function SingleMsg({ image, sender, message, time, senderId }) {
     return (
         <div className={isOpen ? styles.openMsg : styles.closeMsg} onClick={(e) => setIsOpen(!isOpen)}>
             <span className={styles.senderDetails}>
-                {/* TODO: להחליף ליוזר האמיתי */}
-                {senderId == "66168d588eea0054ac8a279c" ?
+                {senderId == user?._id ?
                     <span className={styles.icon}><FontAwesomeIcon icon={faReply} fontSize={30} /></span> :
                     <img className={styles.profile} src={image} alt="profile picture" />}
-                {senderId == "66168d588eea0054ac8a279c" ?
+                {senderId == user?._id ?
                     <span className={styles.sender}>you</span> :
                     <span className={styles.sender}>{sender}</span>}
             </span>

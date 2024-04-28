@@ -6,8 +6,11 @@ import { isValidEmail } from '../../functions/isValidEmail'
 import NewMsgForm from '../../components/NewMsgForm'
 import { faX } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
+import { useUser } from '../../Context/userContext'
 
 export default function NewMsg() {
+
+    const { user } = useUser();
 
     const [inputMembers, setInputMembers] = useState('');
     const [offerMembers, setOfferMembers] = useState([]);
@@ -145,7 +148,7 @@ export default function NewMsg() {
                     <h3>Message</h3>
                     {/* להחליף למייל של היוזר, אופציה נוספת זה להכניס את היוזר ששלח למערך בסרבר ולא כאן וככה למנוע כפילות */}
                     <NewMsgForm
-                        members={[{ email: "user2@example.com", _id: "66168d588eea0054ac8a279c" }, ...sendTo]}
+                        members={[{ email: user?.email, _id: user?._id }, ...sendTo]}
                         subject={subject}
                         setSubErr={setSubErr}
                         setEmailErr={setEmailErr}

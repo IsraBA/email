@@ -11,6 +11,7 @@ import { usePopUp } from '../../Context/PopupContext';
 import Confirm from '../Confirm';
 import apiToast from '../../functions/apiToast';
 import api from '../../functions/api';
+import { useUser } from '../../Context/userContext';
 
 
 export default function NewMsgForm({
@@ -24,6 +25,7 @@ export default function NewMsgForm({
 }) {
 
     const { setPopUpComp } = usePopUp();
+    const { user } = useUser();
 
     const nav = useNavigate();
 
@@ -60,8 +62,7 @@ export default function NewMsgForm({
             const messages = {
                 date: new Date(),
                 content: message,
-                // TODO: להחליף לאי די של השולח האמיתי
-                from: "66168d588eea0054ac8a279c"
+                from: user?._id
             }
             apiToast.put('chat/' + chatId, messages, {}, "Sending Message...", "Message send", "Sending message failed")
                 .then(() => {
@@ -73,8 +74,7 @@ export default function NewMsgForm({
             const messages = [{
                 date: new Date(),
                 content: message,
-                // TODO: להחליף לאי די של השולח האמיתי
-                from: "66168d588eea0054ac8a279c"
+                from: user?._id
             }]
 
             fd.append('subject', subject);

@@ -59,4 +59,9 @@
 .profile{
     width: 53%;
     cursor: pointer;
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 2px solid transparent;
+    outline: 2px solid var(--main-color);
 }

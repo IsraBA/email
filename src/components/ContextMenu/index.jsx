@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import styles from './styles.module.css'
 
-export default function ContextMenu({ x, y, options = [{ icon: '', title: '', func: () => { } }], closeMenu, direction }) {
+export default function ContextMenu({ x = 0, y = 0, options = [{ icon: '', title: '', func: () => { } }], closeMenu, direction }) {
 
     const menuRef = useRef(null);
 
@@ -21,21 +21,24 @@ export default function ContextMenu({ x, y, options = [{ icon: '', title: '', fu
     const directionToStyle = (direction) => {
         switch (direction) {
             case 'up-right':
-                return { top: `${y}px`, left: `${x}px` };
+                return { top: `${y}px`, left: `${x}px`, transformOrigin: 'top' };
             case 'up-left':
-                return { top: `${y}px`, right: `calc(100vw - ${x}px)` };
+                return { top: `${y}px`, right: `calc(100vw - ${x}px)`, transformOrigin: 'top' };
             case 'down-right':
-                return { bottom: `${window.innerHeight - y}px`, left: `${x}px` };
+                return { bottom: `${window.innerHeight - y}px`, left: `${x}px`, transformOrigin: 'bottom' };
             case 'down-left':
-                return { bottom: `${window.innerHeight - y}px`, right: `calc(100vw - ${x}px)` };
+                return { bottom: `${window.innerHeight - y}px`, right: `calc(100vw - ${x}px)`, transformOrigin: 'bottom' };
             default:
-                return { top: `${y}px`, left: `${x}px` };
+                return { top: `${y}px`, left: `${x}px`, transformOrigin: 'top' };
         }
     };
-    
+
 
     return (
-        <ul ref={menuRef} className={styles.menu} style={directionToStyle(direction)} onClick={(e) => e.preventDefault()}>
+        <ul className={styles.menu}
+            ref={menuRef}
+            style={directionToStyle(direction)}
+            onClick={(e) => e.preventDefault()}>
             {options.map(op => <li key={op.title} onClick={op.func}>{op.icon} {op.title}</li>)}
         </ul>
     )

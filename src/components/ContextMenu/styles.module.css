@@ -10,7 +10,6 @@
     gap: 12px;
     z-index: 2;
     box-shadow: rgba(45, 35, 66, 0.2) 0px 2px 4px, rgba(45, 35, 66, 0.266) 5px 7px 13px -3px, var(--main-color) -2px -3px 0 inset;
-    transform-origin: top;
     cursor: auto;
 }
 
