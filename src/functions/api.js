@@ -16,7 +16,7 @@ const mainApi = async (method, path, data, headers) => {
       headers: { ...headers, ...auth },
     });
 
-    console.log("Response:", response.data);
+    // console.log("Response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error:", error.message);

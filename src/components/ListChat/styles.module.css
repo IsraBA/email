@@ -122,3 +122,57 @@
     font-size: 21px;
     color: var(--main-color);
 }
+
+/*------ Settings ------*/
+.container {
+    padding: 10px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.container .starRegular {
+    position: absolute;
+    animation: keyframes-star .5s;
+    fill: black;
+}
+
+.container .starSolid {
+    fill: var(--main-color);
+    position: absolute;
+    animation: keyframes-star .5s;
+    display: none;
+}
+
+/* ------ On check event ------ */
+.container input:checked~.starRegular {
+    display: none;
+}
+
+.container input:checked~.starSolid {
+    display: block;
+}
+
+/* ------ Hide the default checkbox ------ */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* ------ Animations ------ */
+@keyframes keyframes-star {
+    0% {
+        transform: rotate(0deg) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: rotate(10deg) scale(1.3);
+    }
+}

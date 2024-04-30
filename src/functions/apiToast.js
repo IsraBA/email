@@ -23,7 +23,7 @@ const mainApi = async (method, path, data, headers, pending, success, error) => 
       error,
     });
 
-    console.log("Response:", response.data);
+    // console.log("Response:", response.data);
 
     return response
 

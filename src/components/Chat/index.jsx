@@ -16,8 +16,12 @@ import MemberList from '../MemberList';
 import Loader from '../Loader';
 import AddLabelPopUp from '../AddLabelPopUp';
 import LabelListPopUp from '../LabelListPopUp';
+import { useUser } from '../../Context/userContext';
+import titleToLabel from '../../functions/titleToLabel';
 
 export default function Chat() {
+
+  const { user, setUser } = useUser();
 
   const { setChats, setUnreadObj } = useOutletContext();
 
@@ -117,15 +121,24 @@ export default function Chat() {
   }
 
   const openLabelList = () => {
-    setPopUpComp(<LabelListPopUp existingChatLabels={chat.labels} chatId={chatId} setChat={setChat} />)
+    setPopUpComp(<LabelListPopUp
+      chatId={chatId}
+      setChat={setChat}
+      labels={user.labels ?
+        user.labels.map(label => ({
+          ...label, checked: chat.labels.some(title => title === label.title)
+        })) : []}
+
+    />)
   }
 
   return (
     <div className={styles.chat}>
       <div className={styles.head}>
-        <div className={styles.labels}>{chat.labels?.map(lab => (
-          <Label key={lab.title} text={lab.title} color={lab.color} chatId={chatId} setChat={setChat} />)
-        )}</div>
+        <div className={styles.labels}>
+          {chat.labels && titleToLabel(chat.labels, user.labels).map(lab => (
+            <Label key={lab.title} text={lab.title} color={lab.color} chatId={chatId} setChat={setChat} />)
+          )}</div>
         <div className={styles.icons}>
           <label className={styles.container}>
             <input type="checkbox" checked={isFavChat} onChange={toggleFavorite} />

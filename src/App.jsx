@@ -35,12 +35,13 @@ function App() {
         <Route path='register' element={<Register />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/' element={<Layout />}>
-          <Route path='speed' element={<>speed</>} />
-          <Route path='reminders' element={<>reminders</>} />
-          <Route path='views' element={<>views</>} />
-          <Route path='statistics' element={<>statistics</>} />
-          <Route path='videoCalls' element={<>videoCalls</>} />
+          <Route path='speed' element={<h1 className='soon'>Coming soon...</h1>} />
+          <Route path='reminders' element={<h1 className='soon'>Coming soon...</h1>} />
+          <Route path='views' element={<h1 className='soon'>Coming soon...</h1>} />
+          <Route path='statistics' element={<h1 className='soon'>Coming soon...</h1>} />
+          <Route path='videoCalls' element={<h1 className='soon'>Coming soon...</h1>} />
           <Route path='messages' element={<MailBox />}>
+            {/* <Route index element={<Chats />} /> */}
             <Route path='newMessage' element={<NewMsg />} />
             <Route path=':type' element={<Chats />}>
               <Route index element={<NoChat msg={"Chats will appear here"} />} />

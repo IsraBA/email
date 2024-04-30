@@ -22,7 +22,7 @@ export default function MailBox() {
 
   useEffect(() => {
     api.get('chat/unreadCount/unreadObj').then(setUnreadObj)
-  }, [])
+  }, [location.pathname])
 
 
   return (

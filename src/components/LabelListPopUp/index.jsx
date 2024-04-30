@@ -3,44 +3,33 @@ import styles from './styles.module.css'
 import api from '../../functions/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTag } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom';
 
-export default function LabelListPopUp({ existingChatLabels = [] , chatId, setChat}) {
+export default function LabelListPopUp({ labels = [], chatId, setChat }) {
 
-    const [allLabels, setAllLabels] = useState([]);
-
-    useEffect(() => {
-        api.get('user/getAllLabels').then(data => {
-            const labels = data;
-            setAllLabels(labels.map(label => ({
-                ...label,
-                checked: existingChatLabels.some(lab => lab.title === label.title)
-            })))
-        });
-    }, [existingChatLabels]);
+    const [updateLabs, setUpdateLabs] = useState(labels);
 
     const toggleLabel = (label) => {
         // שינוי מצב הצ'ק בוקס ולאחר מכן שליחת עדכון לשרת
-        setAllLabels(allLabels.map(lab => {
+        setUpdateLabs(prev => [...prev.map(lab => {
             if (lab.title === label.title) {
                 return { ...lab, checked: !lab.checked };
             }
             return lab;
-        }));
+        })]);
 
         if (label.checked) {
             api.del(`chat/removeLabel/${chatId}/${label.title}`)
-            .then(res => setChat(prev => ({...prev, labels: res})));
+                .then(res => setChat(prev => ({ ...prev, labels: res })));
         } else {
-            api.post('chat/addLabel/' + chatId, { title: label.title, color: label.color })
-            .then(res => setChat(prev => ({...prev, labels: res})));
+            api.post(`chat/addLabel/${chatId}/${label.title}`)
+                .then(res => setChat(prev => ({ ...prev, labels: res })));
         }
     };
 
     return (
         <ul className={styles.container}>
             <h2 className={styles.title}>Add/Remove label:</h2>
-            {allLabels.map(lab => {
+            {updateLabs.map(lab => {
                 return (
                     <li className={styles.label} key={lab.title} onClick={() => toggleLabel(lab)}>
                         <span><FontAwesomeIcon icon={faTag} color={lab.color} /></span>

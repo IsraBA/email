@@ -23,21 +23,22 @@ export default function Chats() {
   const resetChats = () => {
     setChats([]);
     setLoadChats(true);
-    api.get('chat/' + type).then(res => { setChats(res), setLoadChats(false) });
+    const boxes = ['inbox', 'sent', 'favorite', 'draft', 'deleted'];
+    if (boxes.includes(type)) {
+      api.get('chat/' + type).then(res => { setChats(res), setLoadChats(false) });
+    } else {
+      api.get('chat/label/' + type).then(res => { setChats(res), setLoadChats(false) });
+    }
   };
 
   useEffect(() => {
     resetChats();
-  }, [type])
-
-  // useEffect(() => {
-  //   console.log("chats: ", chats)
-  // }, [chats])
+  }, [type]);
 
   const memberImages = (members = []) => {
     if (members.length > 2) {
       return members.map(member => member.image);
-    } else if (members.length === 2)  {
+    } else if (members.length === 2) {
       // קבלת התמונה של מי שמשתתף איתנו בשיחה
       return members.find(m => m._id !== user._id)?.image;
     } else {
@@ -63,22 +64,23 @@ export default function Chats() {
           <Search setChats={setChats} resetChats={resetChats} setLoadChats={setLoadChats} />
         </div>
         {loadChats ? <Loader /> :
-          chats.length === 0 ? <NoChat msg={"There are no chats yet"}/> :
-          <ul className={styles.msgList}>
-            {chats.map(chat => {
-              return (<ListChat
-                key={chat._id}
-                id={chat._id}
-                link={`/messages/${type}/${chat._id}`}
-                image={memberImages(chat.chat?.members)}
-                sender={memberNames(chat.chat?.members)}
-                time={chat.chat?.lastDate}
-                subject={chat.chat?.subject}
-                isRead={chat.isRead}
-                chats={chats}
-              />)
-            })}
-          </ul>
+          chats.length === 0 ? <NoChat msg={"There are no chats yet"} /> :
+            <ul className={styles.msgList}>
+              {chats.map(chat => {
+                return (<ListChat
+                  key={chat._id}
+                  id={chat._id}
+                  link={`/messages/${type}/${chat._id}`}
+                  image={memberImages(chat.chat?.members)}
+                  sender={memberNames(chat.chat?.members)}
+                  time={chat.chat?.lastDate}
+                  subject={chat.chat?.subject}
+                  isRead={chat.isRead}
+                  isFavorite={chat.isFavorite}
+                  chats={chats}
+                />)
+              })}
+            </ul>
         }
       </div>
       <Outlet context={{ setChats, setUnreadObj }} />

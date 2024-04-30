@@ -4,7 +4,14 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePopUp } from '../../Context/PopupContext';
 
-export default function AddLabelPopUp({ message, placeholder = 'Type here...', submit, labels = [], color = '#000000'}) {
+export default function AddLabelPopUp({
+    message,
+    placeholder = 'Type here...',
+    submit,
+    labels = [],
+    color = '#000000',
+    _id = ''
+}) {
 
     const { setPopUpComp } = usePopUp();
 
@@ -17,12 +24,28 @@ export default function AddLabelPopUp({ message, placeholder = 'Type here...', s
         e.preventDefault();
         let trimedValue = value.trim();
         if (trimedValue) {
-            const isAlreadyExist = labels.find(label => label.title === trimedValue);
+            // ווידוא שהתווית היא לא שם של אחת מהתיבות
+            const boxes = ['inbox', 'sent', 'favorite', 'draft', 'deleted'];
+            if (boxes.includes(trimedValue.toLocaleLowerCase())) {
+                setErr("* This name can't be use for a label");
+                return;
+            }
+
+            // ווידור שהתווית כבר לא קיימת
+            const isAlreadyExist = labels.find(
+                label => label.title.toLocaleLowerCase() === trimedValue.toLocaleLowerCase()
+            );
             if (isAlreadyExist) {
                 setErr('* label already exists');
                 return;
             }
-            submit({ title: trimedValue, color: newColor ? newColor : color});
+
+            // התנהגות שונה אם מדובר בעידכון או ביצירה של תווית
+            if (_id) {
+                submit({ title: trimedValue, color: newColor ? newColor : color, _id });
+            } else {
+                submit({ title: trimedValue, color: newColor ? newColor : color });
+            }
             setPopUpComp(false);
         }
     };

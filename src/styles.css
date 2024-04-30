@@ -49,3 +49,8 @@ ul{
     background-color: black;
     color: white;
 } */
+
+.soon{
+    grid-column: span 3;
+    margin: auto;
+}
