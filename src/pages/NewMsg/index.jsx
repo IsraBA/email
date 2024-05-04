@@ -23,13 +23,25 @@ export default function NewMsg() {
     const deleteAddressee = useRef(null);
 
     const location = useLocation();
-    const { addressee } = location.state || {};
+    const { addressee, draftSubject, draftMembers, draftMessage, draftId } = location.state || {};
 
+    // מילוי הנמען במידה והגיעו לקומפוננטה דרך כפתור השליחה אליו
     useEffect(() => {
         if (addressee?.email) {
             setSendTo([{ email: addressee.email, _id: addressee._id }]);
         }
     }, [addressee]);
+
+    // מילוי השדות במידה ומדובר בהודעה מהטיוטות
+    useEffect(() => {
+        console.log({ draftSubject, draftMembers, draftMessage, draftId })
+        if (draftSubject && draftSubject !== '(No subject)') {
+            setSubject(draftSubject);
+        }
+        if (draftMembers) {
+            setSendTo(draftMembers);
+        }
+    }, [draftSubject, draftMembers, draftMessage, draftId]);
 
     const handleInputChange = (e) => {
         let value = e.target.value;
@@ -98,7 +110,12 @@ export default function NewMsg() {
                     <label className={styles.headerLabels}>
                         <h3>Subject</h3>
                         <div className={styles.inputWrapper}>
-                            <input type="text" name="subject" className={styles.input} onChange={handleSubject} />
+                            <input
+                                type="text"
+                                name="subject"
+                                className={styles.input}
+                                onChange={handleSubject}
+                                value={subject} />
                             {subErr && <p className={styles.err}>{subErr}</p>}
                         </div>
                     </label>
@@ -146,12 +163,13 @@ export default function NewMsg() {
                 </div>
                 <label className={styles.msgContent}>
                     <h3>Message</h3>
-                    {/* להחליף למייל של היוזר, אופציה נוספת זה להכניס את היוזר ששלח למערך בסרבר ולא כאן וככה למנוע כפילות */}
                     <NewMsgForm
                         members={[{ email: user?.email, _id: user?._id }, ...sendTo]}
                         subject={subject}
                         setSubErr={setSubErr}
                         setEmailErr={setEmailErr}
+                        msg={draftMessage}
+                        draftId={draftId}
                     />
                 </label>
             </div>

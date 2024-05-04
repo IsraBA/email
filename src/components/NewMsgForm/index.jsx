@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -12,6 +12,7 @@ import Confirm from '../Confirm';
 import apiToast from '../../functions/apiToast';
 import api from '../../functions/api';
 import { useUser } from '../../Context/userContext';
+import axios from 'axios';
 
 
 export default function NewMsgForm({
@@ -21,7 +22,9 @@ export default function NewMsgForm({
     subject,
     setChat,
     setSubErr,
-    setEmailErr
+    setEmailErr,
+    msg,
+    draftId
 }) {
 
     const { setPopUpComp } = usePopUp();
@@ -31,20 +34,36 @@ export default function NewMsgForm({
 
     const [message, setMessage] = useState('');
     const [msgErr, setMsgErr] = useState('');
+    
+    const messageRef = useRef('');
+    const subjectRef = useRef('');
+    const membersRef = useRef('');
+    // משתנה שיהיה אחראי על האם לשמור את ההודעה לטיוטות, במידה והיוזר שולח את ההודעה הוא נהיה נכון
+    const isSending = useRef('');
+
+    useEffect(() => {
+        if (msg) {
+            setMessage(msg);
+        }
+    }, [])
+
 
     const handleMessageChange = (value) => {
+        messageRef.current = value;
         setMessage(value);
         setMsgErr('');
     };
 
     const deleteMsg = () => {
         if (message !== '') {
-            setPopUpComp(<Confirm func={() => setMessage('')} message={'Are you sure you want to delete the message?'} />)
+            setPopUpComp(<Confirm func={() => setMessage('')}
+                message={'Are you sure you want to delete the message?'} />)
         }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // וולידציות שכל השדות מלאים
         if (subject === '') {
             console.log("first")
             setSubErr("Please enter a subject");
@@ -58,6 +77,8 @@ export default function NewMsgForm({
             setMsgErr("Please enter a message");
             return;
         }
+        isSending.current = true;
+        // שליחת הודעה בתוך צ'אט קיים
         if (chatId) {
             const messages = {
                 date: new Date(),
@@ -69,7 +90,29 @@ export default function NewMsgForm({
                     api.get('chat/singleChat/' + outerChatId).then(res => setChat(res)),
                         setMessage('')
                 });
-        } else {
+        }
+        // שליחת הודעה שהייתה בטיוטות
+        else if (draftId) {
+            const fd = new FormData();
+            const messages = [{
+                date: new Date(),
+                content: message,
+                from: user?._id
+            }]
+
+            fd.append('subject', subject);
+            fd.append('messages', JSON.stringify(messages));
+            fd.append('lastDate', new Date());
+            fd.append('members', JSON.stringify(members));
+            // fd.append('addFile', e.target.addFile.files[0]);
+            // fd.append('image', e.target.image.files[0]);
+
+            apiToast.put('chat/updateDraft/' + draftId + "/true", fd, {},
+                "Sending Message...", "Message send", "Sending message failed")
+                .then(() => nav('/messages/inbox'));
+        }
+        // שליחת הודעה חדשה לגמרי
+        else {
             const fd = new FormData();
             const messages = [{
                 date: new Date(),
@@ -88,6 +131,46 @@ export default function NewMsgForm({
                 .then(() => nav('/messages/inbox'));
         }
     };
+
+    // יצירת טיוטה במידה וההודעה לא נשלחה
+    useEffect(() => {
+        subjectRef.current = subject;
+    }, [subject])
+    useEffect(() => {
+        membersRef.current = members
+    }, [members])
+    useEffect(() => {
+        return () => {
+            if (!chatId && !isSending.current) {
+                if (subjectRef.current || messageRef.current || membersRef.current.length > 1) {
+                    const fd = new FormData();
+                    const messages = [{
+                        date: new Date(),
+                        content: messageRef.current,
+                        from: user?._id
+                    }]
+
+                    fd.append('subject', subjectRef.current ? subjectRef.current : "(No subject)");
+                    fd.append('messages', JSON.stringify(messages));
+                    fd.append('lastDate', new Date());
+                    fd.append('members', JSON.stringify(membersRef.current));
+                    console.log('members', membersRef.current)
+
+                    // עדכון הודעה שכבר הייתה טיוטה
+                    if (draftId) {
+                        apiToast.put('chat/updateDraft/' + draftId + "/false", fd, {},
+                            "Saving to Drafts...", "Message saved to Drafts", "Saving message to Drafts failed")
+                    } 
+                    // יצירת טיוטה חדשה
+                    else {
+                        apiToast.post('chat/addDraft/', fd, {},
+                            "Saving to Drafts...", "Message saved to Drafts", "Saving message to Drafts failed")
+                    }
+                }
+            }
+        }
+    }, [])
+
 
     return (
         <form className={styles.newMsgInput} onSubmit={handleSubmit}>

@@ -57,6 +57,40 @@ export default function Chats() {
     }
   };
 
+  // רינדור שונה של עמוד הטיוטות
+  if (type === 'draft') {
+    return (
+      <div className={styles.drafts}>
+        <div className={styles.search}>
+          <Search setChats={setChats} resetChats={resetChats} setLoadChats={setLoadChats} />
+        </div>
+        {loadChats ? <Loader /> :
+          chats.length === 0 ? <NoChat msg={"There are no Drafts"} /> :
+            <ul className={styles.msgList}>
+              {chats.map(chat => {
+                return (<ListChat
+                  key={chat._id}
+                  id={chat._id}
+                  link={`/messages/newMessage`}
+                  image={memberImages(chat.chat?.members)}
+                  sender={memberNames(chat.chat?.members)}
+                  time={chat.chat?.lastDate}
+                  subject={chat.chat?.subject}
+                  isRead={chat.isRead}
+                  isFavorite={chat.isFavorite}
+                  chats={chats}
+                  isDraft={true}
+                  members={chat.chat?.members}
+                  msg={chat.chat?.messages[0].content}
+                  setChats={setChats}
+                />)
+              })}
+            </ul>
+        }
+      </div>
+    )
+  }
+
   return (
     <>
       <div className={styles.chats}>
