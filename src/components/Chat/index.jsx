@@ -138,7 +138,8 @@ export default function Chat() {
         <div className={styles.labels}>
           {chat.labels && titleToLabel(chat.labels, user.labels).map(lab => (
             <Label key={lab.title} text={lab.title} color={lab.color} chatId={chatId} setChat={setChat} />)
-          )}</div>
+          )}
+        </div>
         <div className={styles.icons}>
           <label className={styles.container}>
             <input type="checkbox" checked={isFavChat} onChange={toggleFavorite} />

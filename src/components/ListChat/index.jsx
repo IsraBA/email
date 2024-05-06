@@ -82,7 +82,8 @@ export default function ListChat({
     }
 
     const deleteDraft = (e) => {
-        e.stopPropagation()
+        e.stopPropagation();
+        e.preventDefault();
         apiToast.del('chat/deleteDraft/' + id, {}, {},
             "Deleting message...", "Message deleted", "Error deleting message")
             .then(() => {
@@ -91,7 +92,7 @@ export default function ListChat({
     };
 
     return (
-        <div className={styles.msgBlock} onClick={markAsRead}>
+        <NavLink to={link}  className={styles.msgBlock} onClick={markAsRead}>
             {/* בירור כמה אנשים משתתפים בצ'אט ומה להציג על פי זה */}
             {Array.isArray(image) ?
                 <div className={
@@ -132,6 +133,6 @@ export default function ListChat({
                         </label> :
                         <div className={styles.read}><FontAwesomeIcon icon={faEnvelope} /></div>}
             </div>
-        </div>
+        </NavLink>
     )
 }

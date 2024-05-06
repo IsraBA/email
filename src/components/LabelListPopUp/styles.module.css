@@ -56,6 +56,12 @@
     font-size: 25px;
 }
 
+.labelName{
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+}
+
 .checkboxWrapper {
     position: relative;
     margin-left: auto;
