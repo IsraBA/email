@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarCheck, faChartSimple, faComments, faCopy, faEye, faGaugeHigh, faRightFromBracket, faVideo } from '@fortawesome/free-solid-svg-icons'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useUser } from '../../Context/userContext'
 import ContextMenu from '../ContextMenu'
 import { toast } from 'react-toastify'
@@ -11,6 +11,8 @@ import chatsImg from '../../assets/chatsImg.png'
 
 export default function SideBar() {
 
+  const nav = useNavigate();
+
   const { user } = useUser();
 
   const menuBtn = useRef(null);
@@ -18,6 +20,14 @@ export default function SideBar() {
   const [menu, setMenu] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [activeLink, setActiveLink] = useState('');
+
+  // משתנה שקובע האם אין צ'אט פתוח ועל פי זה ידע אם להעלים את החלון של הצ'אט
+  const [isChatOpen, setisChatOpen] = useState(false);
+  useEffect(() => {
+    const pathParts = location.pathname.split('/');
+    if (pathParts.length == 4) { setisChatOpen(true) }
+    else { setisChatOpen(false) };
+  }, [nav])
 
   const isActive = (path) => {
     return path == location.pathname.split('/')[1] ? styles.active : styles.inActive
@@ -43,7 +53,7 @@ export default function SideBar() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={isChatOpen ? `${styles.container} ${styles.chatOpen}` : styles.container}>
       <img className={styles.logo} src={chatsImg} alt="logo" />
       <nav className={styles.topics}>
         <NavLink to={'/speed'} onClick={() => setActiveLink('speed')} id={isActive('speed')}>
@@ -78,8 +88,8 @@ export default function SideBar() {
         options={[
           {
             icon: <FontAwesomeIcon icon={faCopy} />,
-            title: <div><b>{user.userName},</b><div style={{fontSize: '12px'}}>{user.email}</div> </div>,
-            func: () => {navigator.clipboard.writeText(user.email); toast.success('Email copied to clipboard') }
+            title: <div><b>{user.userName},</b><div style={{ fontSize: '12px' }}>{user.email}</div> </div>,
+            func: () => { navigator.clipboard.writeText(user.email); toast.success('Email copied to clipboard') }
           }, {
             icon: <FontAwesomeIcon icon={faRightFromBracket} />,
             title: 'Log out',

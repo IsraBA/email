@@ -138,7 +138,7 @@
     cursor: pointer;
 }
 
-.adrss{
+.adrss {
     display: flex;
     gap: 15px;
     overflow-x: auto;
@@ -146,7 +146,7 @@
     margin-bottom: -30px;
 }
 
-.adrs{
+.adrs {
     animation: createAdrs 0.4s;
     width: min-content;
     padding: 9px 13px;
@@ -157,22 +157,24 @@
     font-weight: 700;
 }
 
-.adrs button{
+.adrs button {
     background-color: transparent;
     border: none;
     cursor: pointer;
     font-size: 10px;
 }
 
-@keyframes createAdrs { 
-    0%{
+@keyframes createAdrs {
+    0% {
         transform: scale(0);
         opacity: 0;
     }
-    80%{
+
+    80% {
         transform: scale(1.1);
     }
-    100%{
+
+    100% {
         transform: scale(1);
         opacity: 1;
     }
@@ -228,4 +230,27 @@
 
 .upload {
     display: none;
+}
+
+@media (width < 1100px) {
+    .container {
+        grid-column: span 1;
+    }
+
+    .newMsgForm {
+        width: 100%;
+        height: 100%;
+    }
+    .inputs {
+        width: 100%;
+        height: min-content;
+        /* overflow: hidden; */
+    }
+    .adrss {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+        max-height: 150px;
+    }
 }

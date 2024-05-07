@@ -92,7 +92,8 @@ export default function ListChat({
     };
 
     return (
-        <NavLink to={link}  className={styles.msgBlock} onClick={markAsRead}>
+        <div className={location.pathname == link ? `${styles.msgBlock} active` : styles.msgBlock}
+            onClick={markAsRead}>
             {/* בירור כמה אנשים משתתפים בצ'אט ומה להציג על פי זה */}
             {Array.isArray(image) ?
                 <div className={
@@ -133,6 +134,6 @@ export default function ListChat({
                         </label> :
                         <div className={styles.read}><FontAwesomeIcon icon={faEnvelope} /></div>}
             </div>
-        </NavLink>
+        </div>
     )
 }

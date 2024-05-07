@@ -65,3 +65,9 @@
     border: 2px solid transparent;
     outline: 2px solid var(--main-color);
 }
+
+@media (width < 750px) {
+    .chatOpen{
+        display: none;
+    }
+}

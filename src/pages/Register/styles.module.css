@@ -236,7 +236,7 @@
     text-decoration: underline;
 }
 
-.loading{
+.loading {
     margin: 20px 0;
 }
 
@@ -374,4 +374,26 @@
 
 .google:hover {
     background-color: var(--sub-color);
+}
+
+@media (width < 950px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .bgImg img {
+        display: none;
+    }
+
+    .formContainer {
+        margin: 35px;
+    }
+
+    .title b {
+        font-size: 20px;
+    }
+
+    /* .group {
+        width: fit-content;
+    } */
 }

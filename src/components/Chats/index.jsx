@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './styles.module.css'
 import Search from '../Search'
 import ListChat from '../ListChat'
-import { Outlet, useOutletContext, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import api from '../../functions/api'
 import { useEffect } from 'react'
 import Loader from '../Loader'
@@ -12,6 +12,8 @@ import NoChat from '../../pages/NoChat'
 
 export default function Chats() {
 
+  const nav = useNavigate();
+
   const { user } = useUser();
   const { setUnreadObj } = useOutletContext();
 
@@ -19,6 +21,15 @@ export default function Chats() {
 
   const [chats, setChats] = useState([]);
   const [loadChats, setLoadChats] = useState(true);
+
+  // משתנה שקובע האם יש צ'אט פתוח ועל פי זה ידע אם להעלים את הצ'אטים או לא
+  const [isChatOpen, setisChatOpen] = useState(false);
+  useEffect(() => {
+    const pathParts = location.pathname.split('/')
+    if (pathParts.length == 4) { setisChatOpen(true) }
+    else { setisChatOpen(false) };
+  }, [nav])
+
 
   const resetChats = () => {
     setChats([]);
@@ -60,7 +71,7 @@ export default function Chats() {
   // רינדור שונה של עמוד הטיוטות
   if (type === 'draft') {
     return (
-      <div className={styles.drafts}>
+      <div className={isChatOpen ? `${styles.drafts} ${styles.chatOpen}` : styles.drafts}>
         <div className={styles.search}>
           <Search setChats={setChats} resetChats={resetChats} setLoadChats={setLoadChats} />
         </div>
@@ -93,7 +104,7 @@ export default function Chats() {
 
   return (
     <>
-      <div className={styles.chats}>
+      <div className={isChatOpen ? `${styles.chats} ${styles.chatOpen}` : styles.chats}>
         <div className={styles.search}>
           <Search setChats={setChats} resetChats={resetChats} setLoadChats={setLoadChats} />
         </div>

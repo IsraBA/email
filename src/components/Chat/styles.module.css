@@ -109,6 +109,12 @@
     }
 }
 
+.subject{
+    max-height: 140px;
+    min-height: 60px;
+    overflow-y: auto;
+}
+
 .subject p {
     font-size: smaller;
     color: gray;
@@ -123,4 +129,20 @@
     /* flex-grow: 1; */
     /* height: 46%; */
     overflow-y: auto;
+}
+
+@media (width < 1100px) {
+    .chatClose {
+        display: none;
+    }
+}
+
+@media (width < 750px) {
+    .labels {
+        display: none;
+    }
+
+    .icons {
+        margin-left: auto;
+    }
 }

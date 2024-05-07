@@ -100,3 +100,13 @@
     align-items: center;
     /* border: 1px solid black; */
 }
+
+
+@media (width < 750px) {
+    .openMsg .msg {
+        margin: 0 -60px 15px -131px;
+    }
+    .openMsg{
+        overflow-x: hidden;
+    }
+}

@@ -40,3 +40,9 @@
     flex-direction: column;
     gap: 5px;
 }
+
+@media (width < 750px) {
+    .chatsOpen{
+        display: none;
+    }
+}

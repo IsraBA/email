@@ -18,16 +18,24 @@ export default function MailBox() {
     inbox: 0,
     favorite: 0,
     deleted: 0
-  })
+  });
 
   useEffect(() => {
     api.get('chat/unreadCount/unreadObj').then(setUnreadObj)
-  }, [location.pathname])
+  }, [location.pathname]);
+
+      // משתנה שקובע אם הרשימת צ'אטים פתוחה ועל פי זה יודע אם להעלים את הניווט בין התיבות
+      const [isChatsOpen, setisChatsOpen] = useState(false);
+      useEffect(() => {
+        const pathParts = location.pathname.split('/')
+        if (pathParts.length > 2) { setisChatsOpen(true) }
+        else { setisChatsOpen(false) };
+      }, [nav]);
 
 
   return (
     <>
-      <div className={styles.mailBox}>
+      <div className={isChatsOpen ? `${styles.mailBox} ${styles.chatsOpen}` : styles.mailBox}>
         <div className={styles.head}>
           <div className={styles.headline}>
             <button className={styles.back} onClick={() => nav(-1)}><FontAwesomeIcon icon={faArrowLeft} /></button>

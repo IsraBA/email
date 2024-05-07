@@ -199,18 +199,19 @@ export default function NewMsgForm({
             {msgErr && <p key={msgErr} className={styles.err}>{msgErr}</p>}
             <div className={styles.msgOption}>
                 <div className={styles.options}>
-                    <label className={styles.option}>
+                    {/* <label className={styles.option}>
                         <FontAwesomeIcon icon={faPaperclip} />
                         <input className={styles.upload} type="file" name='addFile' />
                     </label>
                     <label className={styles.option}>
                         <FontAwesomeIcon icon={faImage} />
                         <input className={styles.upload} type="file" name='image' />
-                    </label>
+                    </label> */}
+                    <button type='button' className={styles.option} onClick={deleteMsg}><FontAwesomeIcon icon={faTrash} /></button>
                 </div>
                 <div className={styles.options}>
-                    <button type='button' className={styles.option} onClick={deleteMsg}><FontAwesomeIcon icon={faTrash} /></button>
-                    <button type='button' className={styles.option}><FontAwesomeIcon icon={faEllipsisVertical} /></button>
+                    {/* <button type='button' className={styles.option} onClick={deleteMsg}><FontAwesomeIcon icon={faTrash} /></button> */}
+                    {/* <button type='button' className={styles.option}><FontAwesomeIcon icon={faEllipsisVertical} /></button> */}
                     <div className={styles.send}>
                         <ButtonComp titleAndIcon={['Send', <FontAwesomeIcon icon={faPaperPlane} />]} type='submit' />
                     </div>

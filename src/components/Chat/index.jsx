@@ -21,7 +21,7 @@ import titleToLabel from '../../functions/titleToLabel';
 
 export default function Chat() {
 
-  const { user, setUser } = useUser();
+  const { user } = useUser();
 
   const { setChats, setUnreadObj } = useOutletContext();
 
@@ -37,6 +37,14 @@ export default function Chat() {
   const [menu, setMenu] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [isFavChat, setIsFavChat] = useState(false);
+
+  // משתנה שקובע האם אין צ'אט פתוח ועל פי זה ידע אם להעלים את החלון של הצ'אט
+  const [isChatOpen, setisChatOpen] = useState(false);
+  useEffect(() => {
+    const pathParts = location.pathname.split('/');
+    if (pathParts.length == 4) { setisChatOpen(true) }
+    else { setisChatOpen(false) };
+  }, [nav])
 
   useEffect(() => {
     setChat({});
@@ -132,8 +140,9 @@ export default function Chat() {
     />)
   }
 
+
   return (
-    <div className={styles.chat}>
+    <div className={isChatOpen ? styles.chat : `${styles.chat} ${styles.chatClose}`}>
       <div className={styles.head}>
         <div className={styles.labels}>
           {chat.labels && titleToLabel(chat.labels, user.labels).map(lab => (

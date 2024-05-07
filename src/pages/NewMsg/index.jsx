@@ -23,6 +23,7 @@ export default function NewMsg() {
     const deleteAddressee = useRef(null);
 
     const location = useLocation();
+    console.log("location: ", location)
     const { addressee, draftSubject, draftMembers, draftMessage, draftId } = location.state || {};
 
     // מילוי הנמען במידה והגיעו לקומפוננטה דרך כפתור השליחה אליו
@@ -34,7 +35,7 @@ export default function NewMsg() {
 
     // מילוי השדות במידה ומדובר בהודעה מהטיוטות
     useEffect(() => {
-        console.log({ draftSubject, draftMembers, draftMessage, draftId })
+        // console.log({ draftSubject, draftMembers, draftMessage, draftId })
         if (draftSubject && draftSubject !== '(No subject)') {
             setSubject(draftSubject);
         }
@@ -141,6 +142,7 @@ export default function NewMsg() {
                             {/* כפתור השלמה אימייל אוטומטית */}
                             {offerMembers.length > 0 &&
                                 <button
+                                    style={{ maxWidth: deleteAddressee.current.offsetWidth, overflow: 'hidden' }}
                                     onClick={() => handleAdd(offerRelevant())}
                                     type='button'
                                     className={styles.offer}>

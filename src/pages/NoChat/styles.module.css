@@ -12,3 +12,9 @@
 .container img{
     width: 50%;
 }
+
+@media (width < 1100px) {
+    .chatClose{
+        display: none;
+    }
+}
