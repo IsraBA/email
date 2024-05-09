@@ -10,9 +10,29 @@
 }
 
 :root {
-    --main-color: rgb(107, 62, 205);
-    --light-main-color: rgb(139, 93, 237);
-    --sub-color: rgb(229, 223, 244);
+    --main-color: #7d49ed;
+    --light-main-color: #8b5ded;
+    --sub-color: #e5dff4;
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --icons-color: #404040;
+    --gray-bg: #e9e9e9;
+    --active-bg: #ffffffb3;
+    /* --sub-color: #48415a;
+    --bg-color: #1c1c1c;
+    --text-color: #ffffff;
+    --icons-color: #ffffff;
+    --gray-bg: #383838;
+    --active-bg: #ffffff1f; */
+}
+
+body {
+    max-width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: 0.3s;
 }
 
 a {
@@ -20,46 +40,44 @@ a {
     color: inherit;
 }
 
-ul{
+ul {
     list-style: none;
 }
 
-.active{
+.active {
     box-shadow: 3px 3px 6px 1px rgba(0, 0, 0, 0.229);
-    background-color: rgba(255, 255, 255, 0.705);
+    background-color: var(--active-bg);
     /* background-color: var(--sub-color); */
 }
 
 /* style for the scrollbar thumb */
 ::-webkit-scrollbar {
-    width: 6px; /* width of the scrollbar */
+    width: 6px;
+    /* width of the scrollbar */
     height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--main-color); /* color of the scrollbar thumb */
-    border-radius: 4px; /* radius of the scrollbar thumb */
+    background-color: var(--main-color);
+    /* color of the scrollbar thumb */
+    border-radius: 4px;
+    /* radius of the scrollbar thumb */
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--sub-color); /* color of the scrollbar track */
+    background-color: var(--sub-color);
+    /* color of the scrollbar track */
     border-radius: 4px;
 }
 
-body{
-    max-width: 100vw;
-    min-height: 100vh;
-    overflow: hidden;
-}
-
-.soon{
+.soon {
     grid-column: span 3;
     margin: auto;
 }
 
 
 @media (width < 750px) {
-    .twoTabs{
+    .twoTabs {
         grid-column: span 1;
     }
 }

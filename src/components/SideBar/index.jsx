@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarCheck, faChartSimple, faComments, faCopy, faEye, faGaugeHigh, faRightFromBracket, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarCheck, faChartSimple, faComments, faCopy, faEye, faGaugeHigh, faGear, faRightFromBracket, faVideo } from '@fortawesome/free-solid-svg-icons'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useUser } from '../../Context/userContext'
 import ContextMenu from '../ContextMenu'
@@ -48,6 +48,8 @@ export default function SideBar() {
 
   const logOut = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('siteColor')
+    localStorage.removeItem('darkMode')
     // טעינת הדף ואיבוד הקונקסט
     window.location.reload();
   }
@@ -90,6 +92,10 @@ export default function SideBar() {
             icon: <FontAwesomeIcon icon={faCopy} />,
             title: <div><b>{user.userName},</b><div style={{ fontSize: '12px' }}>{user.email}</div> </div>,
             func: () => { navigator.clipboard.writeText(user.email); toast.success('Email copied to clipboard') }
+          }, {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Settings',
+            func: () => nav('/settings')
           }, {
             icon: <FontAwesomeIcon icon={faRightFromBracket} />,
             title: 'Log out',

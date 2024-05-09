@@ -2,7 +2,7 @@
     animation: confirmCont 0.2s ease;
     position: fixed;
     width: max-content;
-    background-color: #fff;
+    background-color: var(--bg-color);
     border-radius: 10px;
     padding: 16px;
     display: flex;
@@ -18,7 +18,7 @@
     align-items: center;
     gap: 7px;
     cursor: pointer;
-    color: black;
+    color: var(--text-color);
 }
 
 .menu li:hover{

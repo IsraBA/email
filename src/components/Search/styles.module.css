@@ -3,14 +3,14 @@
 /* == type to see fully interactive and click the close buttom to remove the text  == */
 
 .search {
-    --input-bg: #FFf;
+    --input-bg: var(--bg-color);
    /*  background of input */
     --padding: 1.5em;
     --rotate: 80deg;
    /*  rotation degree of input*/
     --gap: 2em;
     /*  gap of items in input */
-    --icon-change-color: #15A986;
+    --icon-change-color: var(--main-color);
    /*  when rotating changed icon color */
     --height: 40px;
    /*  height */
@@ -36,11 +36,12 @@
     outline: none;
     background: none;
     border: 0;
+    color: inherit;
   }
   /* style for both icons -- search,close */
   .search svg {
     /* display: block; */
-    color: #111;
+    color: var(--icons-color);
     transition: 0.3s cubic-bezier(.4,0,.2,1);
     position: absolute;
     height: 15px;
@@ -72,7 +73,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #111;
+    color: var(--icons-color);
+    fill: var(--icons-color);
     padding: 0.1em;
     width: 20px;
     height: 20px;

@@ -15,8 +15,9 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const email = e.target.email.value
-        const password = e.target.password.value
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        setLoading(true);
         api.post('/login', { email, password })
             .then(res => {
                 localStorage.token = res.token;
@@ -25,6 +26,7 @@ export default function Login() {
             .catch(err => {
                 console.log(err)
                 setError('Username or password incorrect')
+                setLoading(false);
             })
     }
 
@@ -39,18 +41,19 @@ export default function Login() {
             .catch(err => {
                 console.log(err)
                 setError('Username or password incorrect')
+                setLoading(false);
             })
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.formContainer}>
-                <h6 className={styles.header}>Mailbox - communicate full-world</h6>
+                <h6 className={styles.header}>TalkLane - communicate full-world</h6>
                 <div className={styles.divider}></div>
                 <div className={styles.body}>
                     <form className={styles.loginForm} onSubmit={e => handleSubmit(e)}>
                         {error && <p className={styles.error}>{error}</p>}
-                        <h1 className={styles.title}>Welcome to Mailbox</h1>
+                        <h1 className={styles.title}>Welcome to TalkLane</h1>
                         <div className={styles.group}>
                             <p className={styles.icon}>@</p>
                             <input

@@ -23,7 +23,7 @@ export default function NewMsg() {
     const deleteAddressee = useRef(null);
 
     const location = useLocation();
-    console.log("location: ", location)
+    // console.log("location: ", location)
     const { addressee, draftSubject, draftMembers, draftMessage, draftId } = location.state || {};
 
     // מילוי הנמען במידה והגיעו לקומפוננטה דרך כפתור השליחה אליו

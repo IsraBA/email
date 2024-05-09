@@ -178,7 +178,7 @@ export default function NewMsgForm({
                 className='editComp'
                 value={message}
                 onChange={handleMessageChange}
-                theme="snow"
+                theme="snow"    
                 modules={{
                     toolbar: [
                         [{ 'size': [] }],

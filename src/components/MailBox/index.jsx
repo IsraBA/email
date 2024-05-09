@@ -39,7 +39,7 @@ export default function MailBox() {
         <div className={styles.head}>
           <div className={styles.headline}>
             <button className={styles.back} onClick={() => nav(-1)}><FontAwesomeIcon icon={faArrowLeft} /></button>
-            <h1>MailBox</h1>
+            <h1>TalkLane</h1>
           </div>
           <ButtonComp titleAndIcon={[<FontAwesomeIcon icon={faEnvelope} />, 'New message']} click={() => nav('newMessage')} />
         </div>

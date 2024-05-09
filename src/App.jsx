@@ -14,6 +14,8 @@ import NoChat from './pages/NoChat'
 import NotFound from './pages/NotFound'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { useEffect, useState } from 'react'
+import Settings from './pages/Settings'
+import usePreferences from './Context/Preferences'
 // const clientId = import.meta.env.VITE_APP_CLIENT_ID
 
 function App() {
@@ -28,6 +30,38 @@ function App() {
     else { setIsToTabs(false) };
   }, [nav])
 
+
+  const { darkMode, siteColor, colorOptions } = usePreferences();
+  // קביעת ערכת נושא לאתר
+  useEffect(() => {
+    // console.log({ darkMode, siteColor, colorOptions })
+    let mainColor = colorOptions ? colorOptions[siteColor][0] : '#7d49ed';
+    let lightMainColor = colorOptions ? colorOptions[siteColor][1] : '#8b5ded';
+    document.documentElement.style.setProperty('--main-color', mainColor);
+    document.documentElement.style.setProperty('--light-main-color', lightMainColor);
+
+    let subColor;
+    if (darkMode) {
+      subColor = colorOptions ? colorOptions[siteColor][2]?.dark : '#48415a';
+      document.documentElement.style.setProperty('--sub-color', subColor);
+      document.documentElement.style.setProperty('--bg-color', '#1c1c1c');
+      document.documentElement.style.setProperty('--text-color', '#ffffff');
+      document.documentElement.style.setProperty('--icons-color', '#ffffff');
+      document.documentElement.style.setProperty('--gray-bg', '#383838');
+      document.documentElement.style.setProperty('--active-bg', '#ffffff1f');
+    } else {
+      subColor = colorOptions ? colorOptions[siteColor][2]?.light : '#e5dff4';
+      document.documentElement.style.setProperty('--sub-color', subColor);
+      document.documentElement.style.setProperty('--bg-color', '#ffffff');
+      document.documentElement.style.setProperty('--text-color', '#000000');
+      document.documentElement.style.setProperty('--icons-color', '#404040');
+      document.documentElement.style.setProperty('--gray-bg', '#e9e9e9');
+      document.documentElement.style.setProperty('--active-bg', '#ffffffb3');
+    }
+  }, [darkMode, siteColor])
+
+
+
   return (
     <div className='app'>
       <ToastContainer
@@ -40,7 +74,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme={darkMode ? "dark" : "light"}
         transition={Slide}
       />
       <Popup />
@@ -55,6 +89,7 @@ function App() {
             <Route path='views' element={<h1 className={isToTabs ? 'soon twoTabs' : 'soon'}>Coming soon...</h1>} />
             <Route path='statistics' element={<h1 className={isToTabs ? 'soon twoTabs' : 'soon'}>Coming soon...</h1>} />
             <Route path='videoCalls' element={<h1 className={isToTabs ? 'soon twoTabs' : 'soon'}>Coming soon...</h1>} />
+            <Route path='settings' element={<Settings />} />
             <Route path='messages' element={<MailBox />}>
               <Route path='newMessage' element={<NewMsg />} />
               <Route path=':type' element={<Chats />}>

@@ -30,6 +30,10 @@
     z-index: -10;
 }
 
+.labelText button {
+    color: var(--text-color);
+}
+
 @keyframes addLabel {
     0% {
         transform: scale(0);

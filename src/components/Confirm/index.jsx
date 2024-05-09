@@ -10,8 +10,14 @@ export default function Confirm({ message, func }) {
     <div className={styles.container}>
       <h3>{message}</h3>
       <div>
-        <button onClick={() => { setPopUpComp(false), func() }} className={`${styles.btn} ${styles.yes}`}>Yes</button>
-        <button onClick={() => setPopUpComp(false)} className={`${styles.btn} ${styles.cancel}`}>Cancel</button>
+        <button onClick={() => { setPopUpComp(false), func() }}
+          className={`${styles.btn} ${styles.yes}`}>
+          Yes
+        </button>
+        <button onClick={() => setPopUpComp(false)}
+          className={`${styles.btn} ${styles.cancel}`}>
+          Cancel
+        </button>
       </div>
     </div>
   )

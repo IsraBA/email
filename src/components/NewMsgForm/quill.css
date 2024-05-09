@@ -13,6 +13,12 @@
   height: 120px;
 }
 
+button .ql-stroke,
+.ql-picker-label:hover .ql-stroke {
+  fill: none;
+  stroke: var(--text-color) !important;
+}
+
 button:hover .ql-stroke,
 .ql-picker-label:hover .ql-stroke {
   fill: none;
@@ -22,6 +28,12 @@ button:hover .ql-stroke,
 .ql-active .ql-stroke {
   fill: none;
   stroke: var(--main-color) !important;
+}
+
+button .ql-fill,
+.ql-picker-label:hover .ql-fill {
+  fill: var(--text-color) !important;
+  stroke: none;
 }
 
 button:hover .ql-fill,
@@ -37,4 +49,20 @@ button:hover .ql-fill,
 
 .readOnlyComp .ql-tooltip {
   display: none;
+}
+
+.ql-editor.ql-blank:before {
+  color: var(--text-color);
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label::before{
+  color: var(--main-color) !important;
+}
+
+.ql-picker-options{
+  background-color: var(--bg-color) !important;
+}
+
+.ql-snow .ql-picker-options .ql-picker-item:hover{
+  color: var(--main-color) !important;
 }

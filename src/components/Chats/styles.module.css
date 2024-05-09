@@ -1,5 +1,5 @@
 .chats {
-    background-color: rgb(233, 233, 233);
+    background-color: var(--gray-bg);
     padding: 0 15px;
     border-radius: 15px;
     overflow: hidden;
@@ -10,7 +10,7 @@
 }
 
 .drafts{
-    background-color: rgb(233, 233, 233);
+    background-color: var(--gray-bg);
     padding: 0 15px;
     border-radius: 15px;
     overflow: hidden;
@@ -23,7 +23,7 @@
 
 .search {
     height: 70px;
-    border-bottom: 2px solid rgb(199, 199, 199);
+    border-bottom: 2px solid var(--sub-color);
     display: flex;
     align-items: center;
     justify-content: center;
