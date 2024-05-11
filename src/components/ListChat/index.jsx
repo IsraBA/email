@@ -3,16 +3,13 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import formatTime from '../../functions/formatTime'
-import { NavLink, useOutletContext } from 'react-router-dom'
-import { faEnvelope, faTag, faTrashArrowUp, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { useOutletContext } from 'react-router-dom'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import api from '../../functions/api'
 import getHighlightedText from '../../functions/highlightText'
 import { useSearchHighlight } from '../../Context/HighlightContext'
 import apiToast from '../../functions/apiToast'
-import ContextMenu from '../ContextMenu'
-import MemberList from '../MemberList'
-import LabelListPopUp from '../LabelListPopUp'
 import { useUser } from '../../Context/userContext'
 
 export default function ListChat({
@@ -104,7 +101,9 @@ export default function ListChat({
                         image.slice(0, 4).map((img, index) => <img key={index} src={img} alt="profile picture" />)
                         : image.slice(0, 3).map((img, index) => <img key={index} src={img} alt="profile picture" />)
                     }
-                    {image.length > 4 ? <div className={styles.moreImg}><p>+{image.length - 3}</p></div> : null}
+                    {image.length > 4 ? <div className={styles.moreImg}><p>
+                        {image.length - 3 > 9 ? '9+' : '+' + (image.length - 3)}
+                    </p></div> : null}
                 </div>
                 : <img className={styles.singleImg} src={image} alt="profile picture" />}
             <div className={styles.senderAndMsg}>
@@ -112,7 +111,8 @@ export default function ListChat({
                     <div className={styles.multiSender} title={sender.join(', ')}>
                         {/* {''.toString()} */}
                         <h3 className={styles.members}>{getHighlightedText(sender.join(', '), highlightText)}</h3>
-                        {sender.length > 2 ? <h3>+{sender.length - 2}</h3> : null}
+                        {sender.length > 2 ?
+                            <h3 id={styles.more}>{sender.length - 2 > 99 ? '99+' : '+' + (sender.length - 2)}</h3> : null}
                     </div>
                     : <h3>{getHighlightedText(sender, highlightText)}</h3>}
                 <p id={isDraft ? styles.subject : ''}>{getHighlightedText(subject, highlightText)}</p>

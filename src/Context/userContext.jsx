@@ -17,13 +17,13 @@ export const UserProvider = ({ children }) => {
             nav('/login');
         } else {
             api.get('getUserWithToken')
-                .then(setUser)
+                .then(res => {setUser(res)})
                 .catch(err => {
                     console.log(err);
                     nav('/login');
                 })
         }
-    }, [])
+    }, [nav])
 
     const [user, setUser] = useState({});
 

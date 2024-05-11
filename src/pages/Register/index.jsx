@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import airplane from '../../assets/airplane.png'
 import api from '../../functions/api';
@@ -7,8 +7,17 @@ import { faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import Loader from '../../components/Loader';
+import { useUser } from '../../Context/userContext';
 
 export default function Register() {
+
+  const { user } = useUser();
+
+  useEffect(() => {
+      if (user.userName) {
+          nav('/messages/inbox');
+      }
+  }, [user])
 
   const defaultPicture = "https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
 

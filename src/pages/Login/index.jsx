@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import airplane from '../../assets/airplane.png'
 import api from '../../functions/api';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import Loader from '../../components/Loader';
+import { useUser } from '../../Context/userContext';
 
 export default function Login() {
+
+    const { user } = useUser();
+
+    useEffect(() => {
+        if (user.userName) {
+            nav('/messages/inbox');
+        }
+    }, [user])
 
     const nav = useNavigate();
 

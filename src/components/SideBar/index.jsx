@@ -13,7 +13,7 @@ export default function SideBar() {
 
   const nav = useNavigate();
 
-  const { user } = useUser();
+  const { user, setUser } = useUser();
 
   const menuBtn = useRef(null);
 
@@ -49,7 +49,8 @@ export default function SideBar() {
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('siteColor')
-    localStorage.removeItem('darkMode')
+    setUser(null);
+    // localStorage.removeItem('darkMode')
     // טעינת הדף ואיבוד הקונקסט
     window.location.reload();
   }

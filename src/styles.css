@@ -76,6 +76,13 @@ ul {
 }
 
 
+@media (width < 1100px) {
+    .twoTabs {
+        grid-column: span 2;
+    }
+}
+
+
 @media (width < 750px) {
     .twoTabs {
         grid-column: span 1;

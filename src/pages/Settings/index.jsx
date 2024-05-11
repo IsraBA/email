@@ -6,13 +6,14 @@ import { useUser } from '../../Context/userContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckDouble, faUser } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../../components/Loader';
+import apiToast from '../../functions/apiToast';
 
 
 
 export default function Settings() {
 
-  const { toggleSiteColor, colorOptions } = usePreferences();
-  const { user } = useUser();
+  const { toggleSiteColor, colorOptions, siteColor } = usePreferences();
+  const { user, setUser } = useUser();
 
   const [profileP, setProfileP] = useState('');
   const [userName, setUserName] = useState('');
@@ -59,6 +60,7 @@ export default function Settings() {
     }
   };
 
+  // יצירת כפתור האישור במידה והשתנו נתונים בטופס
   useEffect(() => {
     if ((oldPassword && password && confirmPassword) ||
       (userName != '' && userName != user.userName) ||
@@ -69,26 +71,45 @@ export default function Settings() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let update = {
+      name: '',
+      image: '',
+      oldPassword: '',
+      newPassword: '',
+    }
     if (oldPassword && password && confirmPassword) {
       if (password === confirmPassword) {
         setLoading(true);
-        // Update user password
-        console.log('Update user password');
+        update.oldPassword = oldPassword;
+        update.newPassword = password;
       } else {
         alert('Passwords do not match');
+        return;
       }
     }
     if (userName != '' && userName != user.userName) {
       setLoading(true);
-      // Update user name
-      console.log('Update user name');
+      update.name = userName.trim().slice(0, 15);
     }
     if (profileP != '' && profileP != user.image) {
       setLoading(true);
-      // Update user profile picture
-      console.log('Update user profile picture');
+      update.image = profileP;
     }
+    apiToast.put('user/changeUserInfo', update, {},
+      "Update your data", "Changes saved", "Failed to save changes")
+      .then(res => {
+        console.log(res.data);
+        setUserName(res.data.userName);
+        setProfileP(res.data.image);
+        setUser(prev => ({ ...prev, userName: res.data.userName, image: res.data.image }))
+        setLoading(false);
+        setSubmitBnt(false);
+        setOldPassword('');
+        setPassword('');
+        setConfirmPassword('');
+      }).catch(err => { console.log(err), setLoading(false) })
   }
+
 
   return (
     <div className={styles.container}>
@@ -105,7 +126,7 @@ export default function Settings() {
             <h2>{user.email}</h2>
           </div>
 
-          <div className={styles.inputs}>
+          <div className={submitBnt ? styles.inputs : styles.inputsNoSubmit}>
 
             <label className={styles.name}>
               <h5>Name: </h5>
@@ -169,44 +190,57 @@ export default function Settings() {
               </div>
             </label>
 
+            {submitBnt &&
+              (loading ? <div className={styles.loading}><Loader /></div> :
+                <button className={styles.animatedButton} type='submit'>
+                  <svg xmlns="http://www.w3.org/2000/svg" className={styles.arr2} viewBox="0 0 24 24">
+                    <path
+                      d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                    ></path>
+                  </svg>
+                  <span className={styles.text}>Save changes</span>
+                  <span className={styles.circle}></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" className={styles.arr1} viewBox="0 0 24 24">
+                    <path
+                      d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                    ></path>
+                  </svg>
+                </button>)}
           </div>
-          {submitBnt && 
-          (loading ? <div className={styles.loading}><Loader /></div> :
-              <button className={styles.animatedButton} type='submit'>
-                <svg xmlns="http://www.w3.org/2000/svg" className={styles.arr2} viewBox="0 0 24 24">
-                  <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                  ></path>
-                </svg>
-                <span className={styles.text}>Save changes</span>
-                <span className={styles.circle}></span>
-                <svg xmlns="http://www.w3.org/2000/svg" className={styles.arr1} viewBox="0 0 24 24">
-                  <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                  ></path>
-                </svg>
-              </button>)}
         </form>
       </div>
       <div className={styles.section}>
         <h1>Theme</h1>
         <ul className={styles.innerSection}>
-          <li>Dark mode:
+          <li>
+            <h2>Mode:</h2>
             <ToggleDarkMode />
           </li>
           <li>
-            App color:
-            {Object.entries(colorOptions).map((color) => (
-              <button
-                className={styles.colorBtn}
-                key={color[0]}
-                onClick={() => toggleSiteColor(color[0])}
-                style={{ backgroundColor: color[1][0] }}
-              ></button>
-            ))}
+            <h2>Site color:</h2>
+            <div className={styles.colors}>
+              {Object.entries(colorOptions).map((color) => (
+                <button
+                  className={
+                    siteColor == color[0] ? `${styles.selectedColor} ${styles.colorBtn}` : styles.colorBtn
+                  }
+                  key={color[0]}
+                  onClick={() => toggleSiteColor(color[0])}
+                  style={
+                    siteColor === color[0]
+                      ? {
+                        backgroundColor: color[1][0],
+                        outlineOffset: '3px',
+                        outline: `2px solid ${color[1][0]}`,
+                      }
+                      : { backgroundColor: color[1][0] }
+                  }
+                ></button>
+              ))}
+            </div>
           </li>
         </ul>
       </div>
-    </div>
+    </div >
   )
 }

@@ -59,8 +59,7 @@ function App() {
       document.documentElement.style.setProperty('--active-bg', '#ffffffb3');
     }
   }, [darkMode, siteColor])
-
-
+  
 
   return (
     <div className='app'>

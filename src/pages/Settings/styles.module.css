@@ -30,11 +30,8 @@
     gap: 10px;
 }
 
-.profilP {
-    height: 130px;
-    border-radius: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+.loading {
+    margin: 20px 0;
 }
 
 .innerSection {
@@ -47,16 +44,47 @@
     gap: 200px;
 }
 
+.innerSection li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.innerSection li h2 {
+    border-bottom: 2px solid var(--main-color);
+    padding: 5px;
+    /* padding-right: 30px; */
+    width: 85%;
+    text-align: center;
+}
+
+.colors {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 13px;
+}
+
+.colorBtn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+}
+
 .profileP {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 250px;
     cursor: pointer;
+    width: 250px;
+    aspect-ratio: 1;
+    object-fit: cover;
     margin-bottom: 20px;
     border-radius: 100%;
-    aspect-ratio: 1;
     overflow: hidden;
     border: 5px solid transparent;
     outline: 3px solid var(--main-color);
@@ -93,7 +121,15 @@
 .inputs {
     display: flex;
     flex-direction: column;
+    transition: 0.3s;
+    height: 410px;
+}
 
+.inputsNoSubmit {
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+    height: 315px;
 }
 
 .name {
@@ -107,14 +143,6 @@
 
 .form h5 {
     padding-left: 3px;
-}
-
-.colorBtn {
-    width: 35px;
-    height: 35px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
 }
 
 .group {
@@ -174,6 +202,7 @@
 
 
 .animatedButton {
+    animation: popup 0.3s ease-in-out;
     margin: 20px;
     position: relative;
     display: flex;
@@ -191,6 +220,18 @@
     cursor: pointer;
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes popup {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .animatedButton svg {
@@ -261,4 +302,25 @@
     width: 220px;
     height: 220px;
     opacity: 1;
+}
+
+@media (width < 1100px) {
+    .container {
+        grid-column: span 2;
+    }
+
+    .innerSection {
+        gap: 80px;
+    }
+}
+
+
+@media (width < 750px) {
+    .container {
+        grid-column: span 1;
+    }
+
+    .profileP {
+        width: 33vw;
+    }
 }

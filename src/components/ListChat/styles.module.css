@@ -50,16 +50,17 @@
 
 .moreImg {
     border-radius: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.256);
+    border: 1px solid var(--text-color);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 1px;
+    opacity: 0.5;
 }
 
 .moreImg p {
     margin: auto;
-    color: rgba(0, 0, 0, 0.653);
+    color: var(--text-color);
     font-size: small;
 }
 
@@ -86,6 +87,10 @@
     white-space: nowrap;
     overflow: hidden;
     /* font-size: 17px; */
+}
+
+#more{
+    text-overflow: inherit;
 }
 
 .senderAndMsg p {
@@ -128,6 +133,7 @@
     aspect-ratio: 1;
     border: none;
     font-size: 18px;
+    color: var(--icons-color);
 }
 
 .deleteDraft:hover{
