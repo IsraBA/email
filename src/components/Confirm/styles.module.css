@@ -30,7 +30,7 @@
     font-weight: 700;
     overflow-y: auto;
     max-height: 300px;
-    direction: rtl;
+    /* direction: rtl; */
 }
 
 .yes {

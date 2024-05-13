@@ -124,6 +124,8 @@
     right: 0px;
     font-size: 10px;
     color: gray;
+    transform: scale(0.8);
+    transform-origin: right;
 }
 
 .deleteDraft{
