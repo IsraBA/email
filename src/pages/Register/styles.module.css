@@ -194,6 +194,10 @@
     background-color: transparent;
 }
 
+.hiddenText{
+    color: var(--text-color);
+}
+
 .emailInput {
     padding-right: 112px;
 }
