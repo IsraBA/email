@@ -189,7 +189,7 @@
     border: 2px solid var(--sub-color);
     border-radius: 10px;
     outline: none;
-    color: #0d0c22;
+    color: var(--text-color);
     transition: .5s ease;
     background-color: transparent;
 }
