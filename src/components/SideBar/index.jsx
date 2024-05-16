@@ -57,7 +57,11 @@ export default function SideBar() {
 
   return (
     <div className={isChatOpen ? `${styles.container} ${styles.chatOpen}` : styles.container}>
-      <img className={styles.logo} src={chatsImg} alt="logo" />
+      <img
+        onClick={() => nav('/messages')}
+        className={styles.logo}
+        src={chatsImg}
+        alt="logo" />
       <nav className={styles.topics}>
         <NavLink to={'/speed'} onClick={() => setActiveLink('speed')} id={isActive('speed')}>
           <FontAwesomeIcon icon={faGaugeHigh} />

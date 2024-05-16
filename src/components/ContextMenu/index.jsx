@@ -39,7 +39,7 @@ export default function ContextMenu({ x = 0, y = 0, options = [{ icon: '', title
             ref={menuRef}
             style={directionToStyle(direction)}
             onClick={(e) => e.preventDefault()}>
-            {options.map(op => <li key={op.title} onClick={op.func}>{op.icon} {op.title}</li>)}
+            {options.map(op => <li key={op.title} onClick={() => {op.func(), closeMenu()}}>{op.icon} {op.title}</li>)}
         </ul>
     )
 }

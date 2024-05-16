@@ -132,6 +132,10 @@
     overflow-y: auto;
 }
 
+.back{
+    display: none;
+}
+
 @media (width < 1100px) {
     .chatClose {
         display: none;
@@ -145,5 +149,26 @@
 
     .icons {
         margin-left: auto;
+    }
+    .subject {
+        max-height: 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .subject h1 {
+        font-weight: 700;
+        text-align: center;
+        font-size: 23px;
+    }
+    .back{
+        display: block;
+        border: none;
+        height: 28px;
+        width: 28px;
+        border-radius: 5px;
+        background-color: var(--sub-color);
+        cursor: pointer;
+        color: var(--text-color);
     }
 }

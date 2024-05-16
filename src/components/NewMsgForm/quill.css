@@ -55,14 +55,22 @@ button:hover .ql-fill,
   color: var(--text-color);
 }
 
-.ql-snow .ql-picker.ql-size .ql-picker-label::before{
+.ql-snow .ql-picker.ql-size .ql-picker-label::before {
   color: var(--main-color) !important;
 }
 
-.ql-picker-options{
+.ql-picker-options {
   background-color: var(--bg-color) !important;
 }
 
-.ql-snow .ql-picker-options .ql-picker-item:hover{
+.ql-snow .ql-picker-options .ql-picker-item:hover {
   color: var(--main-color) !important;
+}
+
+@media (width < 750px) {
+  .editComp .ql-container {
+    max-height: 60px;
+    height: min-content;
+    overflow-y: auto;
+  }
 }

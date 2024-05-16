@@ -91,6 +91,7 @@
 
 #more{
     text-overflow: inherit;
+    overflow: visible;
 }
 
 .senderAndMsg p {

@@ -3,7 +3,7 @@ import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import styles from './styles.module.css'
 import Label from '../Label';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faPrint, faTag, faStar, faTrash, faUsers, faTrashArrowUp, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faPrint, faTag, faStar, faTrash, faUsers, faTrashArrowUp, faEnvelope, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import SingleMsg from '../SingleMsg';
 import NewMsgForm from '../NewMsgForm';
 import api from '../../functions/api';
@@ -144,6 +144,7 @@ export default function Chat() {
   return (
     <div className={isChatOpen ? styles.chat : `${styles.chat} ${styles.chatClose}`}>
       <div className={styles.head}>
+      <button className={styles.back} onClick={() => nav(-1)}><FontAwesomeIcon icon={faArrowLeft} /></button>
         <div className={styles.labels}>
           {chat.labels && titleToLabel(chat.labels, user.labels).map(lab => (
             <Label key={lab.title} text={lab.title} color={lab.color} chatId={chatId} setChat={setChat} />)

@@ -323,4 +323,10 @@
     .profileP {
         width: 33vw;
     }
+    
+    .imageAndEmail h2{
+        max-width: 220px;
+        overflow-x: auto;
+        /* text-wrap: wrap; */
+    }
 }

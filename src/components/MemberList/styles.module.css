@@ -113,3 +113,9 @@
     transform: scale(1);
     transition: 0.1s;
 }
+
+@media (width < 750px) {
+    .container {
+        max-height: 500px;
+    }
+}
