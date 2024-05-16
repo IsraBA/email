@@ -173,10 +173,14 @@
 
 .email {
     position: absolute;
-    color: #0d0c22;
+    color: var(--text-color);
     line-height: 30px;
     font-size: 16px;
     border: 2px solid transparent;
+}
+
+.input:focus .email{
+    color: #0d0c22;
 }
 
 .input {
@@ -192,10 +196,6 @@
     color: var(--text-color);
     transition: .5s ease;
     background-color: transparent;
-}
-
-.hiddenText{
-    color: var(--text-color);
 }
 
 .emailInput {

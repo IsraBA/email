@@ -146,7 +146,6 @@ export default function Register() {
               />
               <span
                 ref={hiddenTextRef}
-                className={styles.hiddenText}
                 style={{ visibility: 'hidden', position: 'absolute', whiteSpace: 'pre' }}>
                 {emailInput}
               </span>
