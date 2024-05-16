@@ -204,6 +204,7 @@
 
 .input:focus,
 .input:hover {
+    color: #0d0c22;
     outline: none;
     border-color: var(--main-color);
     background-color: #fff;
