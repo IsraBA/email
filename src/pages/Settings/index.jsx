@@ -98,7 +98,7 @@ export default function Settings() {
     apiToast.put('user/changeUserInfo', update, {},
       "Update your data", "Changes saved", "Failed to save changes")
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         setUserName(res.data.userName);
         setProfileP(res.data.image);
         setUser(prev => ({ ...prev, userName: res.data.userName, image: res.data.image }))
@@ -107,7 +107,7 @@ export default function Settings() {
         setOldPassword('');
         setPassword('');
         setConfirmPassword('');
-      }).catch(err => { console.log(err), setLoading(false) })
+      }).catch(err => { console.error(err), setLoading(false) })
   }
 
 

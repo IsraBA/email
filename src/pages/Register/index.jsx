@@ -84,7 +84,7 @@ export default function Register() {
         setLoading(false);
       })
       .catch(err => {
-        console.log(err)
+        console.error(err)
         setError('Email already exists')
       })
   }

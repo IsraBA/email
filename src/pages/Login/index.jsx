@@ -33,7 +33,7 @@ export default function Login() {
                 nav('/messages/inbox');
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
                 setError('Username or password incorrect')
                 setLoading(false);
             })
@@ -129,7 +129,7 @@ export default function Login() {
                                     handleGoogleSubmit(credentialResponse);
                                 }}
                                 onError={() => {
-                                    console.log('Login Failed');
+                                    console.error('Login Failed');
                                 }}
                             />
                         </>

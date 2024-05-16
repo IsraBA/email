@@ -65,7 +65,6 @@ export default function NewMsgForm({
         e.preventDefault();
         // וולידציות שכל השדות מלאים
         if (subject === '') {
-            console.log("first")
             setSubErr("Please enter a subject");
             return;
         }
