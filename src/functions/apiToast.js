@@ -6,7 +6,8 @@ const mainApi = async (method, path, data, headers, pending, success, error) => 
     let fainlPath = path.startsWith("/") ? path.slice(1) : path;
     let auth = localStorage.token ? { Authorization: "Bearer " + localStorage.token } : {};
 
-    let baseUrl = 'http://localhost:3002/';
+    // let baseUrl = 'http://localhost:3002/';
+    let baseUrl = 'https://email-server-wnht.onrender.com/';
 
     const url = `${baseUrl}${fainlPath}`;
 
