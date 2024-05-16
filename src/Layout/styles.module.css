@@ -7,6 +7,7 @@
     grid-template-rows: calc(100dvh - 30px);
     /* grid-template-rows: calc(100vh - 20px); */
     padding: 15px 0;
+    transition: 0.2s;
 }
 
 @media (width < 1100px) {
