@@ -13,11 +13,13 @@ export const UserProvider = ({ children }) => {
 
     // בדיקה שהטוקן תקין בעת עליית האפליקציה
     useEffect(() => {
-        if (!localStorage.token) {
+        console.log("location.pathname: ", location.pathname)
+        if (location.pathname == '/register' && !localStorage.token) return;
+        else if (!localStorage.token && location.pathname != '/register') {
             nav('/login');
         } else {
             api.get('getUserWithToken')
-                .then(res => {setUser(res)})
+                .then(res => { setUser(res) })
                 .catch(err => {
                     console.log(err);
                     nav('/login');
