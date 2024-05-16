@@ -17,6 +17,7 @@ export default function Register() {
       if (user.userName) {
           nav('/messages/inbox');
       }
+      return () => { window.location.reload() }
   }, [user])
 
   const defaultPicture = "https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"

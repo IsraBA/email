@@ -15,6 +15,7 @@ export default function Login() {
         if (user.userName) {
             nav('/messages/inbox');
         }
+        return () => { window.location.reload() }
     }, [user])
 
     const nav = useNavigate();
